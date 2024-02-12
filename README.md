@@ -18,10 +18,12 @@ This is a fork of the original, from https://github.com/sbergot/mothership-assis
 # Roadmap
 
 ## In development
+
 - Guarantee implementation of 1e rules as written. To this end, test as much as posisble.
 - Implement taking damage, taking armor into account.
 
 ## Being considered
+
 - Allow warden to rename Monster/NPC/Custom.
 - Allow warden to transfert an NPC into a contractor.
 - Put session code and player connections in separate warden tab.
@@ -35,7 +37,7 @@ This is a fork of the original, from https://github.com/sbergot/mothership-assis
   - Reduce various font sizes
   - Make the UI denser
   - Design a better "select" component instead of using buttons
-  - Show players other 
+  - Show players other
 - Check for the possibility to integrate with portraits from ashen-victor.itch.io
 - Import/export characters from the mobile app
-- Ship management 
+- Ship management
