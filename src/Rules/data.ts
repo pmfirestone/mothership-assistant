@@ -218,7 +218,7 @@ export const stressTable: StressEffect[] = [
         props: {
           content: `catatonic for ${roll(
             2,
-            10
+            10,
           )} minutes. Stress reduced by ${stressLoss}`,
         },
       });
@@ -285,8 +285,7 @@ export const stressTable: StressEffect[] = [
   },
   {
     name: "retire",
-    description:
-      "Roll up a new character to play.",
+    description: "Roll up a new character to play.",
     effect(c) {
       return { ...c };
     },
@@ -566,7 +565,7 @@ export const allMotivations: Motivation[] = [
 
 export const allArmorDict: Record<ArmorType, Armor> = toDict(
   allArmors,
-  (a) => a.armorType
+  (a) => a.armorType,
 );
 
 export const trinkets: string[] = [

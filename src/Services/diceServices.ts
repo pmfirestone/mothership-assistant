@@ -1,22 +1,25 @@
 import { RollMode, RollWithMode, Roll, RollResult } from "Rules/types";
 
 export function simpleRoll(sides: number): number {
-    return Math.floor(Math.random() * sides);
+  return Math.floor(Math.random() * sides);
 }
 
 export function roll(number: number, sides: number): number {
-    let result = 0;
-    for (let i = 0; i < number; i++) {
-        result += simpleRoll(sides) + 1;
-    }
-    return result;
+  let result = 0;
+  for (let i = 0; i < number; i++) {
+    result += simpleRoll(sides) + 1;
+  }
+  return result;
 }
 
 export function pickRandom<T>(source: T[]): T {
-    return source[simpleRoll(source.length)];
+  return source[simpleRoll(source.length)];
 }
 
-export function applyRollMode(rollMode: RollMode, roll: () => number): RollWithMode {
+export function applyRollMode(
+  rollMode: RollMode,
+  roll: () => number,
+): RollWithMode {
   if (rollMode === "normal") {
     const result = roll();
     return { result, rolls: [result] };

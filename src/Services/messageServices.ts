@@ -8,7 +8,7 @@ function getNow(): string {
 
 export function stamp(
   character: { id: string; name: string },
-  m: GameMessage
+  m: GameMessage,
 ): StampedMessage {
   return {
     ...m,

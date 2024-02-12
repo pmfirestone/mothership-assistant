@@ -51,38 +51,43 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
   // a devilish hack mapping pairs of booleans to a ranking, thus:
   // T,T > T,F > F,F > F,T => 3 > 2 > 1 > 0.
   // Unfortunately this doesn't actually map to binary or anything useful.
-  function analysePair(success : boolean, critical : boolean) : number {
-    return (success && critical) ? 3 :
-          (success && !critical) ? 2 :
-          (!success && !critical) ? 1 :
-          (!success && critical) ? 0 : -1; // Should never reach this.
+  function analysePair(success: boolean, critical: boolean): number {
+    return success && critical
+      ? 3
+      : success && !critical
+        ? 2
+        : !success && !critical
+          ? 1
+          : !success && critical
+            ? 0
+            : -1; // Should never reach this.
   }
 
   // Use min and max to catch the case where there's only one result.
   const [firstSuccess, firstCrit] = [
     Math.min(...result) < target,
-    Math.min(...result) % 11 == 0
+    Math.min(...result) % 11 == 0,
   ];
 
   const [secondSuccess, secondCrit] = [
     Math.max(...result) < target,
-    Math.max(...result) % 11 == 0
+    Math.max(...result) % 11 == 0,
   ];
 
   const firstResult = analysePair(firstSuccess, firstCrit);
   const secondResult = analysePair(secondSuccess, secondCrit);
 
-  let isSuccess : boolean;
-  let isCritical : boolean;
+  let isSuccess: boolean;
+  let isCritical: boolean;
 
   if (rollMode === "advantage") {
     // Take better result i.e. higher value.
     if (firstResult > secondResult) {
-        isSuccess = firstSuccess;
-        isCritical = firstCrit;
+      isSuccess = firstSuccess;
+      isCritical = firstCrit;
     } else {
-        isSuccess = secondSuccess;
-        isCritical = secondCrit;
+      isSuccess = secondSuccess;
+      isCritical = secondCrit;
     }
   } else if (rollMode === "disadvantage") {
     // Take worse result i.e. lower value.
@@ -95,7 +100,7 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
     }
   } else {
     isSuccess = firstSuccess; // === highResult
-    isCritical = firstCrit;  // === highCrit
+    isCritical = firstCrit; // === highCrit
   }
 
   const skillDescription =
@@ -114,7 +119,7 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
 }
 
 export function analysePanicRoll(
-  rollResult: PanicRollResult
+  rollResult: PanicRollResult,
 ): PanicRollAnalysis {
   const { stress, rollMode, result } = rollResult;
   let rollValue = result[0];
@@ -141,7 +146,7 @@ export function analysePanicRoll(
 export function updateInList<T extends WithId>(
   list: T[],
   id: string,
-  setter: (e: T) => T
+  setter: (e: T) => T,
 ): T[] {
   return list.map((e) => {
     if (e.id !== id) {
@@ -174,7 +179,7 @@ export function useBrowserId(): string {
 export function applyPanic(
   character: Character,
   log: (m: GameMessage) => void,
-  result: number
+  result: number,
 ): Character {
   log({ type: "PanicEffectMessage", props: { result } });
   const entry = stressTable[result];

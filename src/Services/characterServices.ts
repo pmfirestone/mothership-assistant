@@ -45,7 +45,10 @@ export function initCharacter(): Character {
   };
 }
 
-export function spendAmmoForWeapon<T extends BaseCharacter>(character: T, weaponId: string): T {
+export function spendAmmoForWeapon<T extends BaseCharacter>(
+  character: T,
+  weaponId: string,
+): T {
   return {
     ...character,
     weapons: updateInList(character.weapons, weaponId, (w) => {

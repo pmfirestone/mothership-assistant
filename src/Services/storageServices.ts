@@ -8,7 +8,7 @@ export function uuidv4(): string {
       (
         c ^
         (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-      ).toString(16)
+      ).toString(16),
   );
 }
 
@@ -50,7 +50,7 @@ export function createRepository<T>(key: string) {
     }
 
     function reload() {
-      setStateRepo(JSON.parse(localStorage.getItem(key) || "{}"))
+      setStateRepo(JSON.parse(localStorage.getItem(key) || "{}"));
     }
 
     return { saveNew, update, deleteEntry, getEntries, getEntry, reload };
@@ -60,7 +60,7 @@ export function createRepository<T>(key: string) {
 
 export function toDict<T, K extends string>(
   arr: T[],
-  keySelector: (elt: T) => K
+  keySelector: (elt: T) => K,
 ): Record<K, T> {
   const res = {} as Record<K, T>;
   arr.forEach((elt) => {

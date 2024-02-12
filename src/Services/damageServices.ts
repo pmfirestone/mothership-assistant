@@ -33,7 +33,7 @@ export function woundTypeToCriticalType(wt: WoundType): CriticalType {
 }
 
 export function deNormalizeCriticalType(
-  normalizedCriticalType: NormalizedCriticalType
+  normalizedCriticalType: NormalizedCriticalType,
 ): CriticalType {
   const { rollMode, woundType } = normalizedCriticalType;
   if (woundType === "bleeding") {
@@ -96,7 +96,7 @@ export function deNormalizeCriticalType(
 }
 
 export function normalizeCriticalType(
-  criticalType: CriticalType
+  criticalType: CriticalType,
 ): NormalizedCriticalType[] {
   if (criticalType === "Bleeding") {
     return [{ woundType: "bleeding", rollMode: "normal" }];
@@ -159,7 +159,7 @@ export function normalizeCriticalType(
 export function rollWound(
   character: Character,
   log: (m: GameMessage) => void,
-  woundRolls: NormalizedCriticalType[]
+  woundRolls: NormalizedCriticalType[],
 ): Character {
   let newChar = { ...character };
   woundRolls.forEach((wr) => {
@@ -177,7 +177,7 @@ export function rollWound(
 
 export function applyWoundDamage<T extends WithWound>(
   character: T,
-  damage: InflictedDamage
+  damage: InflictedDamage,
 ): T {
   let newChar = { ...character };
 
@@ -194,7 +194,7 @@ export function applyWoundDamage<T extends WithWound>(
 
 export function applyHealthDamage<T extends WithWound & WithHealth>(
   character: T,
-  damage: InflictedDamage
+  damage: InflictedDamage,
 ): { newChar: T; woundsNbr: number } {
   let newChar = { ...character };
   let woundsNbr = 0;
@@ -220,7 +220,7 @@ export function applyHealthDamage<T extends WithWound & WithHealth>(
 export function applyDamage(
   character: Character,
   log: (m: GameMessage) => void,
-  damage: InflictedDamage
+  damage: InflictedDamage,
 ): Character {
   let { newChar, woundsNbr } = applyHealthDamage(character, damage);
 
@@ -233,9 +233,15 @@ export function applyDamage(
 }
 
 export function getRollModeSuffix(rollMode: RollMode): string {
-  if (rollMode === "normal") { return ""; }
-  if (rollMode === "advantage") { return " [+]"; }
-  if (rollMode === "disadvantage") { return " [-]"; }
+  if (rollMode === "normal") {
+    return "";
+  }
+  if (rollMode === "advantage") {
+    return " [+]";
+  }
+  if (rollMode === "disadvantage") {
+    return " [-]";
+  }
   throw new Error("unknown roll mode");
 }
 
@@ -270,7 +276,7 @@ export function getDamageDescription(damages: Damage): string {
 
 export function innerRollDamages(
   damages: Damage,
-  criticalType: CriticalType
+  criticalType: CriticalType,
 ): InflictedDamage {
   if (damages.damageType === "d100") {
     return {
@@ -336,7 +342,7 @@ export function rollDamages(
   damages: Damage,
   criticalType: CriticalType,
   isCritical: boolean,
-  attackName: string = ""
+  attackName: string = "",
 ): InflictedDamage {
   const damage = innerRollDamages(damages, criticalType);
   if (isCritical) {

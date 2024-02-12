@@ -1,10 +1,17 @@
 import { toDict } from "Services/storageServices";
 import { allSkillsDict } from "./Data/skills";
-import { SkillDefinition, SkillType, SkillLevel, CharacterSkill } from "./types";
+import {
+  SkillDefinition,
+  SkillType,
+  SkillLevel,
+  CharacterSkill,
+} from "./types";
 
 export type SkillFilter = (s: SkillDefinition) => boolean;
 
-export function isPrerequisiteOk(selectedSkills: CharacterSkill[]): SkillFilter {
+export function isPrerequisiteOk(
+  selectedSkills: CharacterSkill[],
+): SkillFilter {
   const selectedDict = toDict(selectedSkills, (s) => s.type);
   return (s: SkillDefinition) => {
     const { prerequisites } = allSkillsDict[s.key];
