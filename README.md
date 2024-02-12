@@ -29,7 +29,6 @@ This is a fork of the original, from https://github.com/sbergot/mothership-assis
   - Stored in local storage
   - Warden tab to allow export/import tables from library
   - Can export/import library from main menu
-- Ensure import and export format is compatible with mobile mothership companion app.
 - Armor/weapons/equipment/contractors customization
 - UI review:
   - Better font hierarchy
