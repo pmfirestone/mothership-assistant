@@ -37,12 +37,6 @@ const rollModeDescr: Record<RollMode, string> = {
 export function analyseRoll(rollResult: RollResult): RollAnalysis {
   const { stat, skill, rollMode, result } = rollResult;
   let rollValue = result[0];
-  if (rollMode === "advantage") {
-    rollValue = Math.min(...result);
-  }
-  if (rollMode === "disadvantage") {
-    rollValue = Math.max(...result);
-  }
   const skillDefinition = skill !== null ? allSkillsDict[skill.type] : null;
   const skillLevel =
     skillDefinition !== null
@@ -51,8 +45,59 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
   const skillBonus =
     skill?.lossOfConfidence || skillLevel == null ? 0 : skillLevel.bonus;
   const target = stat.value + skillBonus;
-  const isSuccess = rollValue < target;
-  const isCritical = rollValue % 11 === 0;
+
+  // The logic here is absurdly convoluted, actually: it's easy to say in
+  // English, but shockingly difficult to implement concisely. I'll just use
+  // a devilish hack mapping pairs of booleans to a ranking, thus:
+  // T,T > T,F > F,F > F,T => 3 > 2 > 1 > 0.
+  // Unfortunately this doesn't actually map to binary or anything useful.
+  function analysePair(success : boolean, critical : boolean) : number {
+    return (success && critical) ? 3 :
+          (success && !critical) ? 2 :
+          (!success && !critical) ? 1 :
+          (!success && critical) ? 0 : -1; // Should never reach this.
+  }
+
+  // Use min and max to catch the case where there's only one result.
+  const [firstSuccess, firstCrit] = [
+    Math.min(...result) < target,
+    Math.min(...result) % 11 == 0
+  ];
+
+  const [secondSuccess, secondCrit] = [
+    Math.max(...result) < target,
+    Math.max(...result) % 11 == 0
+  ];
+
+  const firstResult = analysePair(firstSuccess, firstCrit);
+  const secondResult = analysePair(secondSuccess, secondCrit);
+
+  let isSuccess : boolean;
+  let isCritical : boolean;
+
+  if (rollMode === "advantage") {
+    // Take better result i.e. higher value.
+    if (firstResult > secondResult) {
+        isSuccess = firstSuccess;
+        isCritical = firstCrit;
+    } else {
+        isSuccess = secondSuccess;
+        isCritical = secondCrit;
+    }
+  } else if (rollMode === "disadvantage") {
+    // Take worse result i.e. lower value.
+    if (firstResult < secondResult) {
+      isSuccess = firstSuccess;
+      isCritical = firstCrit;
+    } else {
+      isSuccess = secondSuccess;
+      isCritical = secondCrit;
+    }
+  } else {
+    isSuccess = firstSuccess; // === highResult
+    isCritical = firstCrit;  // === highCrit
+  }
+
   const skillDescription =
     skillDefinition !== null ? ` + ${skillDefinition?.name}` : "";
   const rollDescritpion = `${stat.name}${skillDescription}${rollModeDescr[rollMode]}`;
