@@ -11,7 +11,7 @@ Features included:
 
 Please note that all your data is stored locally on your device.
 
-Mothership assistant is currently in beta and temporarily available for limited personal use at https://glamorous-quarter.surge.sh/. It should be useable as is. The plan is to improve the UI and review the various data tables before publishing a stable branch to a new url.
+Mothership assistant is currently in beta and temporarily available for limited personal use at https://mothership-assistant.surge.sh/. It should be useable as is. The plan is to improve the UI and review the various data tables before publishing a stable branch to a new url.
 
 This is a fork of the original, from https://github.com/sbergot/mothership-assistant. I decided to publish my own version of this for my own players.
 
