@@ -34,6 +34,13 @@ const rollModeDescr: Record<RollMode, string> = {
   normal: "",
 };
 
+
+/**
+ * Determine the outcome of a roll.
+ *
+ * @param rollResult A roll to which RNG has been applied.
+ * @return The roll with the analysis fields filled.
+ */
 export function analyseRoll(rollResult: RollResult): RollAnalysis {
   const { stat, skill, rollMode, result } = rollResult;
   let rollValue = result[0];
