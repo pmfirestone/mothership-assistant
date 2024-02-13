@@ -16,7 +16,7 @@ export function CharacterShort({ character, onTitleClick }: Props) {
 	className="rounded-3xl bg-mother-6 text-mother-1 text-center cursor-pointer hover:bg-mother-5"
 	onClick={onTitleClick}
       >
-	{character.name}
+	  {character.characterClass}: {character.name} ({character.pronouns})
       </div>
       <div className="flex flex-col gap-2 p-4">
 	<div className="flex flex-wrap justify-around gap-x-4 self-center">
