@@ -14,7 +14,7 @@ export function Layout({ children }: Children) {
         -{" "}
         <a
           className="link"
-          href="https://github.com/sbergot/mothership-assistant/issues"
+          href="https://github.com/pmfirestone/mothership-assistant/issues"
         >
           report a bug
         </a>{" "}
