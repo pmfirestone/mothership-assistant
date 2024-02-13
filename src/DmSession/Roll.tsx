@@ -76,7 +76,7 @@ export function Roll({ log }: Log) {
             rounded
             onClick={() => {
               setRollMode((m) =>
-                m === "disadvantage" ? "normal" : "disadvantage"
+                m === "disadvantage" ? "normal" : "disadvantage",
               );
             }}
           >

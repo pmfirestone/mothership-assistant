@@ -15,7 +15,7 @@ function download(filename: string, text: string) {
   var element = document.createElement("a");
   element.setAttribute(
     "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text),
   );
   element.setAttribute("download", filename);
 
@@ -101,7 +101,7 @@ export function MainMenu({
                 onClick={() => {
                   download(
                     "mothership-assistant-characters.json",
-                    localStorage["characters"]
+                    localStorage["characters"],
                   );
                 }}
               >
@@ -125,7 +125,7 @@ export function MainMenu({
                 disabled={selectedCharId === null}
                 onConfirm={() => {
                   deleteCharacterEntry(
-                    characterEntries.find((c) => c.id === selectedCharId)!
+                    characterEntries.find((c) => c.id === selectedCharId)!,
                   );
                   setSelectedCharId(null);
                 }}
@@ -222,7 +222,7 @@ export function MainMenu({
                 disabled={selectedGameId === null}
                 onConfirm={() => {
                   deleteGameEntry(
-                    gameEntries.find((g) => g.id === selectedGameId)!
+                    gameEntries.find((g) => g.id === selectedGameId)!,
                   );
                   setSelectedGameId(null);
                 }}
@@ -233,7 +233,7 @@ export function MainMenu({
                 onClick={() => {
                   download(
                     "mothership-assistant-games.json",
-                    localStorage["games"]
+                    localStorage["games"],
                   );
                 }}
               >

@@ -9,7 +9,7 @@ export function Status({
   character,
   setCharacter,
   setMode,
-  log
+  log,
 }: ReadWriteCharacter & SetMode & Log) {
   return (
     <Block variant="light">
@@ -78,9 +78,7 @@ export function Status({
         <Button onClick={() => setMode({ mode: "RollWound" })}>
           Roll wound
         </Button>
-        <Button onClick={() => deathCheck(log)}>
-          Death check
-        </Button>
+        <Button onClick={() => deathCheck(log)}>Death check</Button>
       </div>
     </Block>
   );

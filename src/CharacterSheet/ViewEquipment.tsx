@@ -49,7 +49,7 @@ export function ViewEquipment({ setCharacter, setMode, equipment }: Props) {
             setCharacter((character) => ({
               ...character,
               equipment: character.equipment.filter(
-                (c) => c.id !== equipment.id
+                (c) => c.id !== equipment.id,
               ),
             }));
             back();

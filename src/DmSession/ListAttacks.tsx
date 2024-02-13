@@ -72,7 +72,9 @@ function ShortAttack({ attack, onDelete, onEdit }: ShortAttackProps) {
           {getDamageDescription(attack.damage)} -{" "}
           {deNormalizeCriticalType(attack.critical)}
         </div>
-        {attack.description && <div className="text-xs">{attack.description}</div>}
+        {attack.description && (
+          <div className="text-xs">{attack.description}</div>
+        )}
       </BlockWithTitle>
     </div>
   );

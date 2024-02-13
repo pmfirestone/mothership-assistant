@@ -16,8 +16,7 @@ import { useCallback, useMemo, useState } from "react";
 import { simpleRoll } from "Services/diceServices";
 import { toDict } from "Services/storageServices";
 
-interface Props extends ReadWriteGame {
-}
+interface Props extends ReadWriteGame {}
 
 type EntryType = "monsters" | "npcs" | "customEntries";
 
@@ -30,7 +29,7 @@ interface Table {
 function getColumns(
   category: string,
   idSelected: string | null,
-  updateRow: (elt: CustomEntry) => void
+  updateRow: (elt: CustomEntry) => void,
 ): Column<CustomEntry>[] {
   return [
     {
@@ -106,7 +105,7 @@ function getTables(game: Game) {
       byCat[category].push(customEntry);
     });
     Object.entries(byCat).forEach(([category, items]) =>
-      tables.push({ title: category, type: "customEntries", entries: items })
+      tables.push({ title: category, type: "customEntries", entries: items }),
     );
   }
   return tables;
@@ -131,7 +130,7 @@ export function DmTables({ game, setGame }: Props) {
       columns: getColumns(t.title, selected, (elt) => updateElt(elt, t.type)),
       title: t.title,
     })),
-    (c) => c.title
+    (c) => c.title,
   );
 
   return (

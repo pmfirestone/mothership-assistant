@@ -66,12 +66,16 @@ export function RollWound({ character, setCharacter, setMode, log }: Props) {
       </div>
       <Divider />
       <div className="flex justify-center gap-2">
-        <Button dark rounded onClick={() => {
-          // we don't use setter function because we have side effects and it is run twice
-          const newChar = rollWound(character, log, [woundRoll]);
-          setCharacter(c => newChar);
-          setMode({ mode: "CharacterSheet" });
-        }}>
+        <Button
+          dark
+          rounded
+          onClick={() => {
+            // we don't use setter function because we have side effects and it is run twice
+            const newChar = rollWound(character, log, [woundRoll]);
+            setCharacter((c) => newChar);
+            setMode({ mode: "CharacterSheet" });
+          }}
+        >
           roll
         </Button>
         <Button

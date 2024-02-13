@@ -10,7 +10,7 @@ export function Weapons({
   character,
   setCharacter,
   setMode,
-  log
+  log,
 }: ReadWriteBaseChar & SetMode & Log) {
   return (
     <Block variant="light">
@@ -87,7 +87,9 @@ function Weapon({ weapon, setCharacter, setMode, log }: WeaponProps) {
             setCharacter((c) => spendAmmoForWeapon(c, weapon.id));
             log({
               type: "DamageMessage",
-              props: { ...rollDamages(weapon.damage[0], weapon.critical, false) },
+              props: {
+                ...rollDamages(weapon.damage[0], weapon.critical, false),
+              },
             });
           }}
         >

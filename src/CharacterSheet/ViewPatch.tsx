@@ -12,9 +12,7 @@ export function ViewPatch({ character, setMode }: Props) {
     <Block variant="light">
       <Title>Patch</Title>
       <Divider />
-      <div className="text-center">
-        {character.patch}
-      </div>
+      <div className="text-center">{character.patch}</div>
       <Divider />
       <div className="flex justify-center gap-2">
         <Button onClick={back}>Back</Button>

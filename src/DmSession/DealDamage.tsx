@@ -52,15 +52,17 @@ export function DealDamage({ game, setGame, setMode, damage }: Props) {
               setGame((g) => ({
                 ...g,
                 npcs: updateInList(g.npcs, selection?.id, (n) =>
-                  applyWoundDamage(n, damage)
+                  applyWoundDamage(n, damage),
                 ),
               }));
             }
             if (selection?.type === "monster") {
               setGame((g) => ({
                 ...g,
-                monsters: updateInList(g.monsters, selection?.id, (n) =>
-                  applyHealthDamage(n, damage).newChar
+                monsters: updateInList(
+                  g.monsters,
+                  selection?.id,
+                  (n) => applyHealthDamage(n, damage).newChar,
                 ),
               }));
             }

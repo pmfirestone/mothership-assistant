@@ -42,7 +42,12 @@ export function PersonalDetails({ character, onConfirm }: StepProps) {
         </div>
       </Block>
       <div className="self-center mt-2">
-        <Button rounded dark disabled={!done} onClick={() => onConfirm(newCharacter)}>
+        <Button
+          rounded
+          dark
+          disabled={!done}
+          onClick={() => onConfirm(newCharacter)}
+        >
           Confirm
         </Button>
       </div>

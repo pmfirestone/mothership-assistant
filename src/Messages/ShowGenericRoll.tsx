@@ -1,18 +1,29 @@
 import { GenericRollResult } from "Rules/types";
 
-export function ShowGenericRoll({ diceNbr, diceType, rollMode, result }: GenericRollResult) {
+export function ShowGenericRoll({
+  diceNbr,
+  diceType,
+  rollMode,
+  result,
+}: GenericRollResult) {
   let rollModeDescr = "";
   if (rollMode === "advantage") {
-    rollModeDescr = " [+]"
+    rollModeDescr = " [+]";
   }
   if (rollMode === "disadvantage") {
-    rollModeDescr = " [-]"
+    rollModeDescr = " [-]";
   }
   return (
     <div>
-      <div>rolled {diceNbr}d{diceType}{rollModeDescr}</div>
+      <div>
+        rolled {diceNbr}d{diceType}
+        {rollModeDescr}
+      </div>
       {result.rolls.map((r, i) => (
-        <span key={i} className={`mx-1 ${r === result.result ? "" : "text-mother-4"}`}>
+        <span
+          key={i}
+          className={`mx-1 ${r === result.result ? "" : "text-mother-4"}`}
+        >
           {r}
         </span>
       ))}

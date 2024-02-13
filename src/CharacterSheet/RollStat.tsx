@@ -67,7 +67,7 @@ export function RollStat({
           rounded
           onClick={() => {
             setRollMode((m) =>
-              m === "disadvantage" ? "normal" : "disadvantage"
+              m === "disadvantage" ? "normal" : "disadvantage",
             );
           }}
         >
@@ -94,7 +94,7 @@ export function RollStat({
                 : {
                     type: "AttackRollMessage",
                     props: { weaponId, roll: results },
-                  }
+                  },
             );
             const analysis = analyseRoll(results);
             if (!analysis.isSuccess) {

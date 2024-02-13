@@ -28,7 +28,8 @@ export function ShowAttackRoll({
         </span>
       ))}
       <span>
-        vs {target} - {isCritical ? "Critical " : ""}{isSuccess ? "Success" : "Failure"}!
+        vs {target} - {isCritical ? "Critical " : ""}
+        {isSuccess ? "Success" : "Failure"}!
       </span>
       <div>
         {isSuccess &&

@@ -13,13 +13,7 @@ interface Props extends ReadWriteGame, SetDmMode, Log {
   characters: Character[];
 }
 
-export function DmSheet({
-  game,
-  setGame,
-  characters,
-  setMode,
-  log
-}: Props) {
+export function DmSheet({ game, setGame, characters, setMode, log }: Props) {
   const contractors = characters.flatMap((c) => c.contractors);
   return (
     <div>
@@ -42,7 +36,7 @@ export function DmSheet({
         </div>
       </FoldableSection>
       <FoldableSection title="Monsters">
-        <Monsters game={game} setGame={setGame} setMode={setMode} log={log}/>
+        <Monsters game={game} setGame={setGame} setMode={setMode} log={log} />
       </FoldableSection>
       <FoldableSection title="NPCs">
         <NPCs game={game} setGame={setGame} />

@@ -5,7 +5,11 @@ import { Block, Button, Title } from "UI/Atoms";
 import { SetMode, WriteBaseChar, WriteCharacter } from "./types";
 import { Rating } from "UI/Molecules";
 
-function newCustomItem(name: string, description: string, quantity: number): Equipment {
+function newCustomItem(
+  name: string,
+  description: string,
+  quantity: number,
+): Equipment {
   return {
     baseType: uuidv4(),
     cost: 0,
@@ -29,7 +33,10 @@ export function AddCustomItem({
   function addItem() {
     setCharacter((char) => ({
       ...char,
-      equipment: [...char.equipment, newCustomItem(name, description, quantity)],
+      equipment: [
+        ...char.equipment,
+        newCustomItem(name, description, quantity),
+      ],
     }));
     setMode({ mode: "CharacterSheet" });
   }

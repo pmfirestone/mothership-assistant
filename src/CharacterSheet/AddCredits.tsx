@@ -21,10 +21,12 @@ export function AddCredits({ character, setCharacter, back }: Props) {
               credits: parseInt(e.target.value),
             }))
           }
-        />       
+        />
       </Block>
       <div className="flex justify-center mt-2">
-        <Button onClick={back} dark>Back</Button>
+        <Button onClick={back} dark>
+          Back
+        </Button>
       </div>
     </>
   );

@@ -7,9 +7,21 @@ export function WeaponsDebug() {
   return (
     <div className="text-base">
       <Title>weapons debug</Title>
-      <Table columns={weaponsColumns} rows={sortBy(allWeapons.filter(w => !!w.magazineSize), "baseType")} />
+      <Table
+        columns={weaponsColumns}
+        rows={sortBy(
+          allWeapons.filter((w) => !!w.magazineSize),
+          "baseType",
+        )}
+      />
       <Divider />
-      <Table columns={meleeWeaponsColumns} rows={sortBy(allWeapons.filter(w => !w.magazineSize), "baseType")} />
+      <Table
+        columns={meleeWeaponsColumns}
+        rows={sortBy(
+          allWeapons.filter((w) => !w.magazineSize),
+          "baseType",
+        )}
+      />
     </div>
   );
 }

@@ -57,7 +57,7 @@ function rotateArray<T>(arr: T[], limit: number): T[] {
 function useDmConnection(
   messages: StampedMessage[],
   revealedElements: RevealedElement[],
-  storeMessage: (m: StampedMessage) => void
+  storeMessage: (m: StampedMessage) => void,
 ) {
   const [sessionCode, setSessionCode] = useState("");
   const [connectionsState, setConnectionsState] = useState<
@@ -186,7 +186,7 @@ function useDmConnection(
       storeMessage(stamped);
     }
     setTransientMessages((tms) =>
-      rotateArray([...tms, stamped], MAX_MESSAGE_NBR)
+      rotateArray([...tms, stamped], MAX_MESSAGE_NBR),
     );
     if (playerConnectionsRef.current && !stamped.wardenOnly) {
       Object.values(playerConnectionsRef.current).forEach((c) => {
@@ -298,7 +298,7 @@ export function DmSession({ game, setGame }: Props) {
         .filter((t) => !t.isPaused)
         .map((t) => t.id);
       const timersToUpdate = nextRunningTimerIds.filter((t) =>
-        previousRunningTimerIds.includes(t)
+        previousRunningTimerIds.includes(t),
       );
       previousRunningTimerIds = nextRunningTimerIds;
 

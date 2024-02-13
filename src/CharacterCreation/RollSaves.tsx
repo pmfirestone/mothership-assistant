@@ -31,7 +31,12 @@ export function RollSaves({ character, onConfirm }: StepProps) {
         <Button rounded dark disabled={done} onClick={rollSaves}>
           Roll
         </Button>
-        <Button rounded dark disabled={!done} onClick={() => onConfirm(newCharacter)}>
+        <Button
+          rounded
+          dark
+          disabled={!done}
+          onClick={() => onConfirm(newCharacter)}
+        >
           Confirm
         </Button>
       </div>

@@ -319,7 +319,12 @@ export function CharacterSheet({
       />
       <Stats character={character} setMode={setMode} />
       <Skills character={character} setMode={setMode} />
-      <Weapons character={character} setMode={setMode} log={log} setCharacter={setCharacter} />
+      <Weapons
+        character={character}
+        setMode={setMode}
+        log={log}
+        setCharacter={setCharacter}
+      />
       <Armor character={character} setMode={setMode} />
       <Equipment character={character} setMode={setMode} />
       <Contractors character={character} setMode={setMode} />

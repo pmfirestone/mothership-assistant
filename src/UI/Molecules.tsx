@@ -204,13 +204,15 @@ export function BlockWithTitle({
   light,
   title,
   children,
-  className
+  className,
 }: BlockWithTitleProps) {
   const colors = light
     ? "bg-mother-2 text-mother-6"
     : "bg-mother-4 text-mother-1";
   return (
-    <div className={`rounded-xl ${colors} flex flex-col gap-2 pb-2 ${className}`}>
+    <div
+      className={`rounded-xl ${colors} flex flex-col gap-2 pb-2 ${className}`}
+    >
       <div className="rounded-3xl bg-mother-6 text-mother-1 text-center relative px-2 pt-1">
         {title}
       </div>

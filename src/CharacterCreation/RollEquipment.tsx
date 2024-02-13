@@ -10,7 +10,7 @@ import { instantiateLoadout, loadoutRefs } from "Rules/Data/loadouts";
 export function RollEquipment({ character, onConfirm }: StepProps) {
   const [newCharacter, setCharacter] = useState({ ...character });
   const [gearOption, setGearOption] = useState<"loadout" | "credits" | null>(
-    null
+    null,
   );
   const trinketRolled = !!newCharacter.trinket;
   const patchRolled = !!newCharacter.patch;
@@ -28,7 +28,7 @@ export function RollEquipment({ character, onConfirm }: StepProps) {
   function rollGearOption() {
     if (gearOption === "loadout") {
       const loadout = instantiateLoadout(
-        pickRandom(loadoutRefs[newCharacter.characterClass])
+        pickRandom(loadoutRefs[newCharacter.characterClass]),
       );
       setCharacter((c) => ({
         ...c,

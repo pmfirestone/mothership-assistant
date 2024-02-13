@@ -60,9 +60,7 @@ export function Root() {
     return (
       <DmSession
         game={gamesRepo.getEntry(mode.gameId)}
-        setGame={(setter) =>
-          gamesRepo.update(mode.gameId, setter)
-        }
+        setGame={(setter) => gamesRepo.update(mode.gameId, setter)}
       />
     );
   }

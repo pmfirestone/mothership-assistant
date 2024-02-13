@@ -8,7 +8,7 @@ export function ShowDamage({
   criticalType,
   inflicted,
   context,
-  name
+  name,
 }: InflictedDamage & { context: MessageContext }) {
   const { result, rolls } = amount;
   return (
@@ -22,7 +22,7 @@ export function ShowDamage({
       <span>
         - {criticalType} - {inflicted}
       </span>
-{/*
+      {/*
       <div>
         <Button
           dark

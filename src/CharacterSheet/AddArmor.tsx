@@ -17,10 +17,10 @@ function getDefaultSelection(): Record<ArmorType, number> {
 export function AddArmor({
   setCharacter,
   setMode,
-  wallet
+  wallet,
 }: WriteBaseChar & SetMode & { wallet: Wallet }) {
   const [selected, setSelected] = useState<Record<ArmorType, number>>(
-    getDefaultSelection()
+    getDefaultSelection(),
   );
 
   const columns: Column<Armor>[] = [

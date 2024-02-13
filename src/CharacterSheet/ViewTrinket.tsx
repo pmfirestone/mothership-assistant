@@ -12,9 +12,7 @@ export function ViewTrinket({ character, setMode }: Props) {
     <Block variant="light">
       <Title>Trinket</Title>
       <Divider />
-      <div className="text-center">
-        {character.trinket}
-      </div>
+      <div className="text-center">{character.trinket}</div>
       <Divider />
       <div className="flex justify-center gap-2">
         <Button onClick={back}>Back</Button>

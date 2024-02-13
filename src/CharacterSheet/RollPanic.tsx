@@ -36,7 +36,7 @@ export function RollPanic({ character, setCharacter, log, setMode }: Props) {
           rounded
           onClick={() => {
             setRollMode((m) =>
-              m === "disadvantage" ? "normal" : "disadvantage"
+              m === "disadvantage" ? "normal" : "disadvantage",
             );
           }}
         >
@@ -59,7 +59,7 @@ export function RollPanic({ character, setCharacter, log, setMode }: Props) {
             });
             const analysis = analysePanicRoll(results);
             if (!analysis.isSuccess) {
-              setCharacter(c => applyPanic(c, log, analysis.rollValue));
+              setCharacter((c) => applyPanic(c, log, analysis.rollValue));
             }
             setMode({ mode: "CharacterSheet" });
           }}

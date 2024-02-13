@@ -18,9 +18,7 @@ export function ShowRestRoll(rollResult: RollResult) {
         ))}
         vs {target} - <span>{isSuccess ? "Success" : "Failure"}!</span>
       </div>
-      {isSuccess && <div>
-        relieve {rollValue % 10} stress
-      </div>}
+      {isSuccess && <div>relieve {rollValue % 10} stress</div>}
     </div>
   );
 }

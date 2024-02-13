@@ -20,7 +20,7 @@ export function AddEquipment({
   wallet,
 }: WriteBaseChar & SetMode & { wallet: Wallet }) {
   const [selected, setSelected] = useState<Record<string, number>>(
-    getDefaultSelection()
+    getDefaultSelection(),
   );
 
   const columns: Column<Equipment>[] = [

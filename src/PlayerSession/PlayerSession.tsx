@@ -26,7 +26,9 @@ type ConnectionStatus =
 function usePlayerConnection(sessionCode: string, character: Character) {
   const browserId = useBrowserId();
   const [messages, setMessages] = useState<StampedMessage[]>([]);
-  const [revealedElements, setRevealedElements] = useState<RevealedElement[]>([]);
+  const [revealedElements, setRevealedElements] = useState<RevealedElement[]>(
+    [],
+  );
   const [connectionStatus, setConnectionStatus] =
     useState<ConnectionStatus>("connecting");
   const debounceRef = useRef(false);
@@ -162,7 +164,12 @@ function usePlayerConnection(sessionCode: string, character: Character) {
 
   return !!sessionCode
     ? { log, messages, connectionStatus, revealedElements }
-    : { log: stub.log, messages: stub.messages, connectionStatus, revealedElements };
+    : {
+        log: stub.log,
+        messages: stub.messages,
+        connectionStatus,
+        revealedElements,
+      };
 }
 
 interface Props extends ReadWriteCharacter {
@@ -170,16 +177,20 @@ interface Props extends ReadWriteCharacter {
 }
 
 export function PlayerSession({ character, setCharacter, sessionCode }: Props) {
-  const { log, messages, connectionStatus, revealedElements } = usePlayerConnection(
-    sessionCode,
-    character
-  );
+  const { log, messages, connectionStatus, revealedElements } =
+    usePlayerConnection(sessionCode, character);
 
   function wrappedSetCharacter(setter: (c: Character) => Character): void {
     function wrappedSetter(oldChar: Character): Character {
       const newChar = setter(oldChar);
       if (newChar.stress > 20 && newChar.stress > oldChar.stress) {
-        log({ type: "SimpleMessage", props: { content: "Max stress exceeded! Please reduce stress level to 20. The most relevant stat or save is reduced by the same amount of points." } })
+        log({
+          type: "SimpleMessage",
+          props: {
+            content:
+              "Max stress exceeded! Please reduce stress level to 20. The most relevant stat or save is reduced by the same amount of points.",
+          },
+        });
       }
       return newChar;
     }

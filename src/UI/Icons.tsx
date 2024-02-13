@@ -16,8 +16,8 @@ export function ButtonIcon({
   const color = disabled
     ? "text-mother-4 border-mother-4"
     : light
-    ? "text-mother-1 border-mother-1"
-    : "text-mother-6 border-mother-6";
+      ? "text-mother-1 border-mother-1"
+      : "text-mother-6 border-mother-6";
   return (
     <span
       onClick={disabled ? undefined : onClick}

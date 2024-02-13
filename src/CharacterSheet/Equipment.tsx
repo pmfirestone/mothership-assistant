@@ -3,7 +3,6 @@ import { ReadBaseChar, SetMode } from "./types";
 import { formatCredits } from "helpers";
 import { BaseCharacter, Character } from "Rules/types";
 
-
 function isCharacter(c: BaseCharacter): c is Character {
   return (c as any).credits != undefined;
 }

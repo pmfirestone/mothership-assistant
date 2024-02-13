@@ -150,7 +150,6 @@ export function Progress({ current, max }: ProgressProps) {
   );
 }
 
-
 export function Progress2({ current, max }: ProgressProps) {
   const radius = 14;
   const circumference = radius * 2 * Math.PI;

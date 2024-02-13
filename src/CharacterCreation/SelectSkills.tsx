@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import { Block, Button, Title } from "UI/Atoms";
-import {
-  classDefinitionsDict,
-} from "Rules/data";
+import { classDefinitionsDict } from "Rules/data";
 import { BlockWithTitle, Skill } from "UI/Molecules";
 import { Character, SkillLevel, SkillType } from "Rules/types";
 import { StepProps } from "./types";
-import {
-  isSkillLevel,
-  SkillFilter,
-  never,
-  or,
-} from "Rules/skillFilters";
+import { isSkillLevel, SkillFilter, never, or } from "Rules/skillFilters";
 import { SelectSkill } from "UI/Organisms/SelectSkills";
 import { allSkillLevels, allSkillsDict } from "Rules/Data/skills";
 
@@ -86,7 +79,7 @@ function SkillSelection({
   const budget = getSkillsBudget(character);
   const remaining: Record<SkillLevel, number> = computeRemaining(
     budget,
-    character
+    character,
   );
 
   useEffect(() => {
@@ -116,7 +109,7 @@ function SkillSelection({
 
 function computeRemaining(
   budget: Record<SkillLevel, number>,
-  character: Character
+  character: Character,
 ) {
   let remaining: Record<SkillLevel, number> = budget;
   character.skills.forEach((skill) => {
@@ -164,7 +157,10 @@ export function SelectSkills({ character, onConfirm }: StepProps) {
         <SkillSelection
           character={newCharacter}
           onSelect={(s) =>
-            setCharacter((c) => ({ ...c, skills: [...c.skills, { type: s, lossOfConfidence: false }] }))
+            setCharacter((c) => ({
+              ...c,
+              skills: [...c.skills, { type: s, lossOfConfidence: false }],
+            }))
           }
           onFinish={() => setDone(true)}
         />
@@ -174,7 +170,12 @@ export function SelectSkills({ character, onConfirm }: StepProps) {
           <Button rounded dark onClick={() => setCharacter({ ...character })}>
             Reset
           </Button>
-          <Button rounded dark disabled={!done} onClick={() => onConfirm(newCharacter)}>
+          <Button
+            rounded
+            dark
+            disabled={!done}
+            onClick={() => onConfirm(newCharacter)}
+          >
             Confirm
           </Button>
         </div>

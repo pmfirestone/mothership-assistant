@@ -56,7 +56,7 @@ export function RollRest({ character, setCharacter, log, setMode }: Props) {
           rounded
           onClick={() => {
             setRollMode((m) =>
-              m === "disadvantage" ? "normal" : "disadvantage"
+              m === "disadvantage" ? "normal" : "disadvantage",
             );
           }}
         >
@@ -70,8 +70,8 @@ export function RollRest({ character, setCharacter, log, setMode }: Props) {
           rounded
           onClick={() => {
             const results = rollSave({
-	      stat: { value: character[save], name: save },
-	      skill: null,
+              stat: { value: character[save], name: save },
+              skill: null,
               rollMode,
             });
             log({
@@ -84,7 +84,7 @@ export function RollRest({ character, setCharacter, log, setMode }: Props) {
                 ...c,
                 stress: Math.max(
                   c.minStress,
-                  c.stress - (analysis.rollValue % 10)
+                  c.stress - (analysis.rollValue % 10),
                 ),
               }));
             } else {

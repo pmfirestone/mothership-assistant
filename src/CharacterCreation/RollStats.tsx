@@ -32,7 +32,12 @@ export function RollStats({ character, onConfirm }: StepProps) {
         <Button rounded dark disabled={done} onClick={rollStats}>
           Roll
         </Button>
-        <Button rounded dark disabled={!done} onClick={() => onConfirm(newCharacter)}>
+        <Button
+          rounded
+          dark
+          disabled={!done}
+          onClick={() => onConfirm(newCharacter)}
+        >
           Confirm
         </Button>
       </div>

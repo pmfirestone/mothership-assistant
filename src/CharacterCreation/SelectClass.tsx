@@ -171,14 +171,14 @@ function ClassOptions({ onSelection, selectedClass }: ClassOptionsProps) {
 export function SelectClass({ character, onConfirm }: StepProps) {
   const [done, setDone] = useState(false);
   const [selectedClass, setSelectedClass] = useState<CharacterClass | null>(
-    null
+    null,
   );
   const [newCharacter, setCharacter] = useState({ ...character });
 
   function onSelection(className: CharacterClass) {
     setSelectedClass(className);
     setCharacter(
-      classBonuses[className]({ ...character, characterClass: className })
+      classBonuses[className]({ ...character, characterClass: className }),
     );
     setDone(className === "teamster" || className === "marine");
   }
@@ -192,8 +192,8 @@ export function SelectClass({ character, onConfirm }: StepProps) {
         classBonuses[selectedClass]({
           ...character,
           characterClass: selectedClass,
-        })
-      )
+        }),
+      ),
     );
     setDone(true);
   }

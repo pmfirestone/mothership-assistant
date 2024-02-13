@@ -1,6 +1,4 @@
-import {
-  allConditionDefinitionsDict,
-} from "Rules/data";
+import { allConditionDefinitionsDict } from "Rules/data";
 import { ConditionType } from "Rules/types";
 import { Block, Button, Divider, Title } from "UI/Atoms";
 import { ReadWriteCharacter, SetMode } from "./types";
@@ -28,7 +26,7 @@ export function ViewCondition({ setCharacter, setMode, condition }: Props) {
             setCharacter((character) => ({
               ...character,
               conditions: character.conditions.filter(
-                (c) => c.conditionType !== condition
+                (c) => c.conditionType !== condition,
               ),
             }));
             back();

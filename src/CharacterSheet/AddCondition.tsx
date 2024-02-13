@@ -16,11 +16,13 @@ export function AddCondition({ setCharacter, character, setMode }: Props) {
         {allConditionDefinitions
           .filter((c1) =>
             character.conditions.every(
-              (c2) => c2.conditionType !== c1.conditionType
-            )
+              (c2) => c2.conditionType !== c1.conditionType,
+            ),
           )
           .map((c) => (
-            <Button rounded dark
+            <Button
+              rounded
+              dark
               onClick={() => {
                 setCharacter((character) => ({
                   ...character,

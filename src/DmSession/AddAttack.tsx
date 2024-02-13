@@ -188,7 +188,7 @@ export function AddAttack({
             rounded
             onClick={() => {
               setRollMode((m) =>
-                m === "disadvantage" ? "normal" : "disadvantage"
+                m === "disadvantage" ? "normal" : "disadvantage",
               );
             }}
           >

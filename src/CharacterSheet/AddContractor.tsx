@@ -34,7 +34,7 @@ export function AddContractor({
   setMode,
 }: ReadWriteCharacter & SetMode) {
   const [selected, setSelected] = useState<Record<ContractorType, number>>(
-    getDefaultSelection()
+    getDefaultSelection(),
   );
 
   const columns: Column<Contractor>[] = [

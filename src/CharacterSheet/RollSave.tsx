@@ -58,7 +58,7 @@ export function RollSave({ character, setCharacter, log, setMode }: Props) {
           rounded
           onClick={() => {
             setRollMode((m) =>
-              m === "disadvantage" ? "normal" : "disadvantage"
+              m === "disadvantage" ? "normal" : "disadvantage",
             );
           }}
         >
@@ -72,8 +72,8 @@ export function RollSave({ character, setCharacter, log, setMode }: Props) {
           rounded
           onClick={() => {
             const results = rollSave({
-	      stat: { value: character[save], name: save },
-	      skill,
+              stat: { value: character[save], name: save },
+              skill,
               rollMode,
             });
             log({

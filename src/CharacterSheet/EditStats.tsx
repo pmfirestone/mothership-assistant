@@ -56,7 +56,9 @@ export function EditStats({ character, setCharacter, back }: Props) {
         </div>
       </Block>
       <div className="flex justify-center mt-2">
-        <Button onClick={back} dark>Back</Button>
+        <Button onClick={back} dark>
+          Back
+        </Button>
       </div>
     </>
   );
