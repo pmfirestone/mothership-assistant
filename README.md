@@ -26,6 +26,7 @@ This is a fork of the original, from https://github.com/sbergot/mothership-assis
 
 - Allow warden to rename Monster/NPC/Custom.
 - Allow warden to transfert an NPC into a contractor.
+- Enable rolls for contractors.
 - Put session code and player connections in separate warden tab.
 - "Library"
   - Stored in local storage
