@@ -38,7 +38,7 @@ function usePlayerConnection(sessionCode: string, character: Character) {
 
   function initialize() {
     // Create own peer object with connection to shared PeerJS server
-    let peer = new Peer();
+    let peer = new Peer({ debug: 3 });
 
     peerRef.current = peer;
 
