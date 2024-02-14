@@ -77,7 +77,7 @@ function useDmConnection(
       return;
     }
     debounceRef.current = true;
-    const peer = new Peer();
+    const peer = new Peer({ debug: 3 });
     playerConnectionsRef.current = {};
     setConnectionsState({});
 
