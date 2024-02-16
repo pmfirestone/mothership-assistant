@@ -174,7 +174,7 @@ function useDmConnection(
       });
 
       conn.on("error", (e) => {
-        console.error("connexion error", e);
+        console.error("Connection error", e);
         setConnectionsState((cs) => ({
           ...cs,
           [metadata.browserId]: {

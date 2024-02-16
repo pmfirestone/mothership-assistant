@@ -34,7 +34,6 @@ const rollModeDescr: Record<RollMode, string> = {
   normal: "",
 };
 
-
 /**
  * Determine the outcome of a roll.
  *
@@ -121,7 +120,7 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
     rollValue,
     isSuccess,
     isCritical,
-    rollDescription
+    rollDescription,
   };
 }
 
