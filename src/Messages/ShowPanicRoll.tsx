@@ -2,11 +2,11 @@ import { analysePanicRoll } from "helpers";
 import { PanicRollResult } from "Rules/types";
 
 export function ShowPanicRoll(rollResult: PanicRollResult) {
-  const { rollDescritpion, rollValue, target, isSuccess, result } =
+  const { rollDescription, rollValue, target, isSuccess, result } =
     analysePanicRoll(rollResult);
   return (
     <div>
-      <div>Panic roll: {rollDescritpion}</div>
+      <div>Panic roll: {rollDescription}</div>
       {result.map((r, i) => (
         <span
           key={i}

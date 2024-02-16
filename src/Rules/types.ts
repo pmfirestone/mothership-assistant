@@ -404,7 +404,7 @@ export interface PanicRollAnalysis extends PanicRollResult {
   target: number;
   rollValue: number;
   isSuccess: boolean;
-  rollDescritpion: string;
+  rollDescription: string;
 }
 
 export interface PanicEffect {

@@ -140,13 +140,13 @@ export function analysePanicRoll(
   }
   const target = stress;
   const isSuccess = rollValue > target;
-  const rollDescritpion = `panic${rollModeDescr[rollMode]}`;
+  const rollDescription = `panic${rollModeDescr[rollMode]}`;
   return {
     ...rollResult,
     target,
     rollValue,
     isSuccess,
-    rollDescritpion,
+    rollDescription,
   };
 }
 
