@@ -1,5 +1,5 @@
 import { Block } from "UI/Atoms";
-import { Character } from "Rules/types";
+import { PlayerCharacter } from "Rules/types";
 import { ReadWriteCharacter } from "./types";
 import { StringProperties } from "BaseTypes";
 
@@ -7,7 +7,7 @@ function Field({
   character,
   setCharacter,
   field,
-}: ReadWriteCharacter & { field: StringProperties<Character> }) {
+}: ReadWriteCharacter & { field: StringProperties<PlayerCharacter> }) {
   return (
     <input
       className="input"
@@ -47,7 +47,7 @@ export function Identity({ character, setCharacter }: ReadWriteCharacter) {
           type="number"
           value={character.highScore}
           onChange={(e) =>
-            setCharacter((c: Character) => ({
+            setCharacter((c: PlayerCharacter) => ({
               ...c,
               highScore: parseInt(e.target.value),
             }))

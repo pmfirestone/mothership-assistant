@@ -1,6 +1,6 @@
 import { Button, Title } from "UI/Atoms";
 import { allSkills } from "Rules/Data/skills";
-import { Character, SkillDefinition, SkillType } from "Rules/types";
+import { PlayerCharacter, SkillDefinition, SkillType } from "Rules/types";
 import {
   and,
   isNotSelected,
@@ -9,7 +9,7 @@ import {
 } from "Rules/skillFilters";
 
 interface SelectSkillProps {
-  character: Character;
+  character: PlayerCharacter;
   onSelect(s: SkillType): void;
   filter(s: SkillDefinition): boolean;
 }

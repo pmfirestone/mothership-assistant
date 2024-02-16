@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Block, Button, Title } from "UI/Atoms";
 import { allStats } from "Rules/data";
 import { Rating, SelectableBlockWithTitle } from "UI/Molecules";
-import { Character, CharacterClass, StatType } from "Rules/types";
+import { PlayerCharacter, CharacterClass, StatType } from "Rules/types";
 import { Children } from "UI/types";
 import { StepProps } from "./types";
 
-const classBonuses: Record<CharacterClass, (c: Character) => Character> = {
+const classBonuses: Record<
+  CharacterClass,
+  (c: PlayerCharacter) => PlayerCharacter
+> = {
   marine(c) {
     return {
       ...c,
@@ -90,7 +93,7 @@ function StatSelection({ onSelect }: StatSelectionProps) {
 }
 
 interface ClassBonusProps {
-  updateCharacter(update: (c: Character) => Character): void;
+  updateCharacter(update: (c: PlayerCharacter) => PlayerCharacter): void;
 }
 
 function AndroidStatSelection({ updateCharacter }: ClassBonusProps) {
@@ -183,7 +186,7 @@ export function SelectClass({ character, onConfirm }: StepProps) {
     setDone(className === "teamster" || className === "marine");
   }
 
-  function setCharacterBonus(update: (c: Character) => Character) {
+  function setCharacterBonus(update: (c: PlayerCharacter) => PlayerCharacter) {
     if (selectedClass === null) {
       throw new Error("impossible");
     }

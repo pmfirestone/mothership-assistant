@@ -1,11 +1,11 @@
 import { allSaves, allStats } from "Rules/data";
-import { Character, Contractor } from "Rules/types";
+import { PlayerCharacter, Contractor } from "Rules/types";
 import { TrashIcon } from "UI/Icons";
 import { Rating, Gauge, Skill } from "UI/Molecules";
 import { allSkillsDict } from "Rules/Data/skills";
 
 interface Props {
-  character: Character;
+  character: PlayerCharacter;
   onTitleClick(): void;
 }
 

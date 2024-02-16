@@ -4,7 +4,7 @@ import { stressTable } from "Rules/data";
 import { allSkillsDict, allSkillLevelDefinitionDict } from "Rules/Data/skills";
 import {
   BaseCharacter,
-  Character,
+  PlayerCharacter,
   CustomEntry,
   Game,
   PanicRollAnalysis,
@@ -183,10 +183,10 @@ export function useBrowserId(): string {
 }
 
 export function applyPanic(
-  character: Character,
+  character: PlayerCharacter,
   log: (m: GameMessage) => void,
   result: number,
-): Character {
+): PlayerCharacter {
   log({ type: "PanicEffectMessage", props: { result } });
   const entry = stressTable[result];
   return entry.effect(character, log);

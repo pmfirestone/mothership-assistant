@@ -1,4 +1,4 @@
-import { Character, Game } from "Rules/types";
+import { PlayerCharacter, Game } from "Rules/types";
 import { Button, Title } from "UI/Atoms";
 import { CharacterShort } from "UI/Organisms/CharacterShort";
 import { ContractorShort } from "UI/Organisms/ContractorShort";
@@ -10,7 +10,7 @@ import { FoldableSection } from "UI/Molecules";
 import { Log } from "Messages/types";
 
 interface Props extends ReadWriteGame, SetDmMode, Log {
-  characters: Character[];
+  characters: PlayerCharacter[];
 }
 
 export function DmSheet({ game, setGame, characters, setMode, log }: Props) {

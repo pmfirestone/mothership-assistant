@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import { Block, Button, Title } from "UI/Atoms";
 import { classDefinitionsDict } from "Rules/data";
 import { BlockWithTitle, Skill } from "UI/Molecules";
-import { Character, SkillLevel, SkillType } from "Rules/types";
+import { PlayerCharacter, SkillLevel, SkillType } from "Rules/types";
 import { StepProps } from "./types";
 import { isSkillLevel, SkillFilter, never, or } from "Rules/skillFilters";
 import { SelectSkill } from "UI/Organisms/SelectSkills";
 import { allSkillLevels, allSkillsDict } from "Rules/Data/skills";
 
 interface SkillSelectionProps {
-  character: Character;
+  character: PlayerCharacter;
   onSelect(s: SkillType): void;
   onFinish(): void;
 }
 
-function getSkillsBudget(character: Character): Record<SkillLevel, number> {
+function getSkillsBudget(
+  character: PlayerCharacter,
+): Record<SkillLevel, number> {
   if (character.characterClass === "teamster") {
     return {
       Trained: 3,
@@ -109,7 +111,7 @@ function SkillSelection({
 
 function computeRemaining(
   budget: Record<SkillLevel, number>,
-  character: Character,
+  character: PlayerCharacter,
 ) {
   let remaining: Record<SkillLevel, number> = budget;
   character.skills.forEach((skill) => {
@@ -119,7 +121,7 @@ function computeRemaining(
   return remaining;
 }
 
-function computeSkillNbrByLevel(character: Character) {
+function computeSkillNbrByLevel(character: PlayerCharacter) {
   let skillNbrByLevel: Record<SkillLevel, number> = {
     Trained: 0,
     Expert: 0,

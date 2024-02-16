@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Block, Button, Title } from "UI/Atoms";
 import { Gauge } from "UI/Molecules";
 import { roll } from "Services/diceServices";
-import { Character } from "Rules/types";
+import { PlayerCharacter } from "Rules/types";
 import { StepProps } from "./types";
 
 export function RollHealth({ character, onConfirm }: StepProps) {
@@ -11,7 +11,7 @@ export function RollHealth({ character, onConfirm }: StepProps) {
 
   function rollHealth(): void {
     const maxHealth = roll(1, 10) + 10;
-    const newChar: Character = {
+    const newChar: PlayerCharacter = {
       ...newCharacter,
       maxHealth,
       health: maxHealth,

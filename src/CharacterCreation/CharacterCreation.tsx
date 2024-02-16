@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { initCharacter } from "Services/characterServices";
-import { Character } from "Rules/types";
+import { PlayerCharacter } from "Rules/types";
 import { GainStress } from "./GainStress";
 import { NoteTraumaResponse } from "./NoteTraumaResponse";
 import { PersonalDetails } from "./PersonalDetails";
@@ -25,13 +25,13 @@ const Steps: ((props: StepProps) => JSX.Element)[] = [
 ];
 
 interface Props {
-  onComplete(character: Character): void;
+  onComplete(character: PlayerCharacter): void;
 }
 
 export function CharacterCreation({ onComplete }: Props) {
   const [character, setCharacter] = useState(initCharacter());
   const [step, setStep] = useState(0);
-  function next(character: Character) {
+  function next(character: PlayerCharacter) {
     if (Steps[step + 1] === undefined) {
       onComplete(character);
     } else {

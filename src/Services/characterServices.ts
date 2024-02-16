@@ -1,8 +1,8 @@
 import { updateInList } from "helpers";
 import { uuidv4 } from "./storageServices";
-import { BaseCharacter, Character } from "Rules/types";
+import { BaseCharacter, PlayerCharacter } from "Rules/types";
 
-export function initCharacter(): Character {
+export function initCharacter(): PlayerCharacter {
   return {
     id: uuidv4(),
     characterClass: "android",

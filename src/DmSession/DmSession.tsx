@@ -1,5 +1,10 @@
 import { MessagePanel } from "Messages/MessagePanel";
-import { Character, CustomEntry, Game, RevealedElement } from "Rules/types";
+import {
+  PlayerCharacter,
+  CustomEntry,
+  Game,
+  RevealedElement,
+} from "Rules/types";
 import { DataConnection, Peer } from "peerjs";
 import { useEffect, useRef, useState } from "react";
 import { Title } from "UI/Atoms";
@@ -27,7 +32,7 @@ const MAX_MESSAGE_NBR = 500;
 
 interface ConnectionInfo {
   id: string;
-  character: Character | null;
+  character: PlayerCharacter | null;
   state: ConnectionState;
 }
 
@@ -338,9 +343,9 @@ export function DmSession({ game, setGame }: Props) {
     }, 1000);
   }, []);
 
-  const characters: Character[] = connections
+  const characters: PlayerCharacter[] = connections
     .map((c) => c.character)
-    .filter((x): x is Character => x !== null);
+    .filter((x): x is PlayerCharacter => x !== null);
 
   const commonContext: Log & RevealedElements = { log, revealedElements };
 

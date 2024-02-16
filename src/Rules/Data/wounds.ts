@@ -1,8 +1,8 @@
-import { Character, WoundTable, WoundType } from "Rules/types";
+import { PlayerCharacter, WoundTable, WoundType } from "Rules/types";
 import { roll } from "Services/diceServices";
 import { toDict } from "Services/storageServices";
 
-function addBleeding(value: number): (c: Character) => Character {
+function addBleeding(value: number): (c: PlayerCharacter) => PlayerCharacter {
     return c => ({...c, bleeding: c.bleeding + value})
 }
 

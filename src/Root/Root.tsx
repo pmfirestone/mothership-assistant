@@ -3,12 +3,12 @@ import { DmSession } from "DmSession/DmSession";
 import { MainMenu } from "MainMenu/MainMenu";
 import { PlayerSession } from "PlayerSession/PlayerSession";
 import { useState } from "react";
-import { Character, Game } from "Rules/types";
+import { PlayerCharacter, Game } from "Rules/types";
 import { createRepository } from "Services/storageServices";
 import { RootModes, Schema } from "./types";
 import useLocalStorage from "use-local-storage";
 
-const useCharacterRepo = createRepository<Character>("characters");
+const useCharacterRepo = createRepository<PlayerCharacter>("characters");
 const useGamesRepo = createRepository<Game>("games");
 
 export function Root() {

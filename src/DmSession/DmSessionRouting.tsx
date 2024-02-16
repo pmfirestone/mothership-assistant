@@ -1,4 +1,4 @@
-import { Character, Game } from "Rules/types";
+import { PlayerCharacter, Game } from "Rules/types";
 import { Modes, ReadWriteGame } from "./types";
 import { DmSheet } from "./DmSheet";
 import { DealDamage } from "./DealDamage";
@@ -11,7 +11,7 @@ import { AddAttack } from "./AddAttack";
 import { ListAttacks } from "./ListAttacks";
 
 interface Props extends ReadWriteGame, Log {
-  characters: Character[];
+  characters: PlayerCharacter[];
   mode: Modes;
   setMode(mode: Modes): void;
 }

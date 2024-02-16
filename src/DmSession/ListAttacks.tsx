@@ -1,4 +1,4 @@
-import { MonsterAttack } from "Rules/types";
+import { Attack } from "Rules/types";
 import { ReadWriteGame, SetDmMode } from "./types";
 import { BlockWithTitle } from "UI/Molecules";
 import { ButtonIcon, EditIcon, TrashIcon } from "UI/Icons";
@@ -55,7 +55,7 @@ export function ListAttacks({ game, setGame, setMode, monsterId }: Props) {
 }
 
 interface ShortAttackProps {
-  attack: MonsterAttack;
+  attack: Attack;
   onDelete(): void;
   onEdit(): void;
 }

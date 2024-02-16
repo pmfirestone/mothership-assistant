@@ -1,6 +1,6 @@
 import { Block, Button, Title } from "UI/Atoms";
 import { ReadWriteCharacter } from "./types";
-import { Character } from "Rules/types";
+import { PlayerCharacter } from "Rules/types";
 
 interface Props extends ReadWriteCharacter {
   back(): void;
@@ -16,7 +16,7 @@ export function AddCredits({ character, setCharacter, back }: Props) {
           type="number"
           value={character.credits}
           onChange={(e) =>
-            setCharacter((c: Character) => ({
+            setCharacter((c: PlayerCharacter) => ({
               ...c,
               credits: parseInt(e.target.value),
             }))

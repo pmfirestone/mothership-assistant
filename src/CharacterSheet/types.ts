@@ -1,17 +1,17 @@
 import {
   BaseCharacter,
-  Character,
+  PlayerCharacter,
   CharacterSkill,
   ConditionType,
   SkillType,
 } from "Rules/types";
 
 export interface ReadCharacter {
-  character: Character;
+  character: PlayerCharacter;
 }
 
 export interface WriteCharacter {
-  setCharacter(setter: (c: Character) => Character): void;
+  setCharacter(setter: (c: PlayerCharacter) => PlayerCharacter): void;
 }
 
 export type ReadWriteCharacter = ReadCharacter & WriteCharacter;

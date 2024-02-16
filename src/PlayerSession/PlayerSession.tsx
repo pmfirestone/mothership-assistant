@@ -12,7 +12,7 @@ import {
 } from "Messages/types";
 import Peer, { DataConnection } from "peerjs";
 import { useEffect, useRef, useState } from "react";
-import { Character, RevealedElement } from "Rules/types";
+import { PlayerCharacter, RevealedElement } from "Rules/types";
 import { stamp, useLog } from "Services/messageServices";
 import { MobileLayout } from "UI/MobileLayout";
 
@@ -23,7 +23,7 @@ type ConnectionStatus =
   | "disconnected"
   | "offline";
 
-function usePlayerConnection(sessionCode: string, character: Character) {
+function usePlayerConnection(sessionCode: string, character: PlayerCharacter) {
   const browserId = useBrowserId();
   const [messages, setMessages] = useState<StampedMessage[]>([]);
   const [revealedElements, setRevealedElements] = useState<RevealedElement[]>(
@@ -196,8 +196,10 @@ export function PlayerSession({ character, setCharacter, sessionCode }: Props) {
   const { log, messages, connectionStatus, revealedElements } =
     usePlayerConnection(sessionCode, character);
 
-  function wrappedSetCharacter(setter: (c: Character) => Character): void {
-    function wrappedSetter(oldChar: Character): Character {
+  function wrappedSetCharacter(
+    setter: (c: PlayerCharacter) => PlayerCharacter,
+  ): void {
+    function wrappedSetter(oldChar: PlayerCharacter): PlayerCharacter {
       const newChar = setter(oldChar);
       if (newChar.stress > 20 && newChar.stress > oldChar.stress) {
         log({

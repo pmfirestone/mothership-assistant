@@ -1,7 +1,7 @@
 import { Entry } from "BaseTypes";
 import { useState } from "react";
 import { RootModes } from "Root/types";
-import { Character, Game } from "Rules/types";
+import { PlayerCharacter, Game } from "Rules/types";
 import {
   Block,
   Button,
@@ -35,8 +35,8 @@ function importData(key: string, body: string) {
 }
 
 interface Props {
-  characterEntries: Entry<Character>[];
-  deleteCharacterEntry(c: Entry<Character>): void;
+  characterEntries: Entry<PlayerCharacter>[];
+  deleteCharacterEntry(c: Entry<PlayerCharacter>): void;
   gameEntries: Entry<Game>[];
   deleteGameEntry(c: Entry<Game>): void;
   saveNewGame(game: Game): string;
