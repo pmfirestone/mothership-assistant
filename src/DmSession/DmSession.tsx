@@ -77,7 +77,12 @@ function useDmConnection(
       return;
     }
     debounceRef.current = true;
-    const peer = new Peer({ debug: 3 });
+
+    const peer = new Peer({
+      debug: 3,
+      config: { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] },
+    });
+
     playerConnectionsRef.current = {};
     setConnectionsState({});
 

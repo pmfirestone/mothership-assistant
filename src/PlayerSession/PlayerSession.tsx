@@ -38,8 +38,10 @@ function usePlayerConnection(sessionCode: string, character: Character) {
 
   function initialize() {
     // Create own peer object with connection to shared PeerJS server
-    let peer = new Peer({ debug: 3 });
-
+    let peer = new Peer({
+      debug: 3,
+      config: { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] },
+    });
     peerRef.current = peer;
 
     peer.on("open", function (id) {
