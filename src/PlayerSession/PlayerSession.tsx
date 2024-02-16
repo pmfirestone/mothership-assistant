@@ -132,7 +132,7 @@ function usePlayerConnection(sessionCode: string, character: Character) {
     });
     conn.on("error", (e) => {
       setConnectionStatus("error");
-      console.error("connexion error", e);
+      console.error("Connection error", e);
     });
   }
 
