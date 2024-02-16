@@ -142,6 +142,15 @@ export function MainMenu({
             placeholder="Session code"
             value={sessionCode}
             onChange={(e) => setSessionCode(e.target.value)}
+            onKeyDown={(e) => {
+              e.code === "Enter" && selectedCharId !== null
+                ? setMode({
+                    mode: "PlayerSession",
+                    sessionCode,
+                    characterId: selectedCharId!,
+                  })
+                : null;
+            }}
           />
           <div className="shrink-0">
             <Button
