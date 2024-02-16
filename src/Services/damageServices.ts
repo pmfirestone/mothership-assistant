@@ -4,11 +4,12 @@ import {
   CriticalType,
   NormalizedCriticalType,
   Character,
+  Armor,
+  NonPlayerCharacter,
+  PlayerCharacter,
   InflictedDamage,
   Damage,
   WoundType,
-  WithHealth,
-  WithWound,
   RollMode,
 } from "Rules/types";
 import { applyRollMode, roll } from "./diceServices";
@@ -157,10 +158,10 @@ export function normalizeCriticalType(
 }
 
 export function rollWound(
-  character: Character,
+  character: PlayerCharacter,
   log: (m: GameMessage) => void,
   woundRolls: NormalizedCriticalType[],
-): Character {
+): PlayerCharacter {
   let newChar = { ...character };
   woundRolls.forEach((wr) => {
     const woundTable = allWoundTablesDict[wr.woundType];
@@ -175,61 +176,60 @@ export function rollWound(
   return newChar;
 }
 
-export function applyWoundDamage<T extends WithWound>(
-  character: T,
-  damage: InflictedDamage,
-): T {
-  let newChar = { ...character };
-
-  if (damage.inflicted === "health") {
-    newChar.wounds += Math.floor(damage.amount.result / 10) + 1;
-  }
-
-  if (damage.inflicted === "wounds") {
-    newChar.wounds += damage.amount.result;
-  }
-
-  return newChar;
-}
-
-export function applyHealthDamage<T extends WithWound & WithHealth>(
-  character: T,
-  damage: InflictedDamage,
-): { newChar: T; woundsNbr: number } {
-  let newChar = { ...character };
-  let woundsNbr = 0;
-  if (damage.inflicted === "health") {
-    let damageLeft = damage.amount.result;
-    while (damageLeft >= newChar.health) {
-      damageLeft -= newChar.health;
-      newChar.health = newChar.maxHealth;
-      newChar.wounds += 1;
-      woundsNbr += 1;
-    }
-    newChar.health -= damageLeft;
-  }
-
-  if (damage.inflicted === "wounds") {
-    woundsNbr = damage.amount.result;
-    newChar.wounds += damage.amount.result;
-  }
-
-  return { newChar, woundsNbr };
-}
-
 export function applyDamage(
-  character: Character,
-  log: (m: GameMessage) => void,
+  target: Character,
   damage: InflictedDamage,
 ): Character {
-  let { newChar, woundsNbr } = applyHealthDamage(character, damage);
+  let newTarget = { ...target };
 
-  for (let i = 0; i < woundsNbr; i++) {
-    const woundRolls = normalizeCriticalType(damage.criticalType);
-    newChar = rollWound(newChar, log, woundRolls);
+  // "Damage Reduction occurs first." PSG pg. 28.3
+  const damageReduction: number = target.armor
+    .filter((a: Armor) => a.damageReduction > 0)
+    .map((a: Armor) => a.damageReduction)
+    .reduce((acc, cur) => acc + cur, 0);
+  let passedThroughDamage = damage.rolledAmount.result - damageReduction;
+
+  // "Weapons with Anti-Armor ignore and destroy armor whenever they hit." PSG pg. 28.3
+  if (damage?.antiArmor) {
+    newTarget.armor = [];
   }
 
-  return newChar;
+  // "Characters ignore all damage less than their armor's Armor Points (AP)." PSG pg. 28.3
+  const armorPoints: number = newTarget.armor
+    .filter((a: Armor) => a.armorPoints > 0)
+    .map((a: Armor) => a.armorPoints)
+    .reduce((acc, cur) => acc + cur, 0);
+
+  if (passedThroughDamage < armorPoints) {
+    return newTarget;
+  }
+
+  // "If [Characters] ever take Damage grater than or equal to their AP in
+  // one hit, their armor is destroyed and they suffer any remaining Damage." PSG pg. 28.3
+  if (passedThroughDamage >= armorPoints) {
+    newTarget.armor = [];
+    passedThroughDamage -= armorPoints;
+  }
+
+  if (newTarget?.health) {
+    // "When taking Damage, subtract it from Health." PSG 28.2
+    while (passedThroughDamage > 0) {
+      passedThroughDamage--;
+      newTarget.health--;
+      // "If your health reaches zero, gain a Wound." PSG pg. 28.2
+      if (newTarget.health == 0) {
+        newTarget.wounds++;
+        // "Then, reset the character's Health to Maximum and subtract any carryover damage." PSG pg. 28.2
+        newTarget.health = newTarget.maxHealth;
+      }
+    }
+    return newTarget;
+  } else {
+    // "If there is no Health listed, any damage causes a Wound." UCR pg. 2.6
+    // The caller should figure out what happens next.
+    newTarget.wounds += 1;
+    return newTarget;
+  }
 }
 
 export function getRollModeSuffix(rollMode: RollMode): string {

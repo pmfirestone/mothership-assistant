@@ -187,7 +187,7 @@ export interface ConditionDefinition extends Condition {
 export interface StressEffect {
   name: string;
   description: string;
-  effect(c: Character, log: (m: GameMessage) => void): Character;
+  effect(c: PlayerCharacter, log: (m: GameMessage) => void): PlayerCharacter;
 }
 
 export interface WoundTable {
@@ -198,34 +198,33 @@ export interface WoundTable {
 
 export interface WoundEffect {
   description: string;
-  effect(c: Character, log: (m: GameMessage) => void): Character;
+  effect(c: PlayerCharacter, log: (m: GameMessage) => void): PlayerCharacter;
 }
 
 export interface WithId {
   id: string;
 }
 
-export interface WithWound {
-  wounds: number;
-  maxWounds: number;
-}
-
-export interface WithHealth {
-  maxHealth: number;
-  health: number;
+export interface CustomEntry extends WithId {
+  name: string;
+  category?: string;
+  description: string;
+  visibleToAll: boolean;
+  excluded: boolean;
 }
 
 export interface Damage {
   damageType: DamageType;
   amount: number;
   rollMode: RollMode;
+  antiArmor?: boolean;
 }
 
 export type InflictedDamageType = "health" | "wounds";
 
-export interface InflictedDamage {
+export interface InflictedDamage extends Damage {
   name?: string;
-  amount: RollWithMode;
+  rolledAmount: RollWithMode;
   criticalType: CriticalType;
   inflicted: InflictedDamageType;
 }
@@ -286,28 +285,37 @@ export interface Item extends WithId {
   quantity: number;
 }
 
-export interface BaseCharacter extends WithId, WithWound {
+export interface Character extends WithId {
   name: string;
   pronouns: string;
   thumbnailPath?: string;
+  /** Current number of wounds taken (counts up). */
+  wounds: number;
+  /** Maximum number of wounds that can be taken (constant). */
+  maxWounds: number;
+  /** Current health remaining (counts down). */
+  health?: number;
+  /** Maximum health (constant). Invariant: maxHealth >= health */
+  maxHealth?: number;
   equipment: Equipment[];
   armor: Armor[];
   weapons: Weapon[];
   items: Item[];
 }
 
-export interface Contractor extends BaseCharacter {
-  type: ContractorType;
+export interface NonPlayerCharacter extends Character, CustomEntry {
+  type?: ContractorType;
   occupation: string;
   salary: number;
   combat: number;
   instinct: number;
   loyalty: number;
   motivation: string;
+  attacks: Attack[];
   probability: Probability;
 }
 
-export interface Character extends BaseCharacter, WithHealth {
+export interface PlayerCharacter extends Character {
   personalNotes: string;
   characterClass: CharacterClass;
   strength: number;
@@ -333,10 +341,10 @@ export interface Character extends BaseCharacter, WithHealth {
   creationComplete: boolean;
   woundEffects: Wound[];
   bleeding: number;
-  contractors: Contractor[];
+  contractors: NonPlayerCharacter[];
 }
 
-export type Updater = (update: (c: Character) => Character) => void;
+export type Updater = (update: (c: PlayerCharacter) => PlayerCharacter) => void;
 
 export interface ClassDefinition {
   name: CharacterClass;
@@ -416,36 +424,17 @@ export interface WoundEffectEntry {
   type: WoundType;
 }
 
-export interface CustomEntry extends WithId {
-  name: string;
-  category?: string;
-  description: string;
-  visibleToAll: boolean;
-  excluded: boolean;
-}
-
-export interface Npc extends CustomEntry, WithWound {
-  name: string;
-  combat: number;
-  instinct: number;
-}
-
-export interface MonsterAttack extends WithId {
+export interface Attack extends WithId {
   name: string;
   description: string;
   critical: NormalizedCriticalType;
   damage: Damage;
 }
 
-export interface Monster extends Npc, WithHealth {
-  attacks: MonsterAttack[];
-}
-
 export interface Game {
   title: string;
-  npcs: Npc[];
+  npcs: NonPlayerCharacter[];
   customEntries: CustomEntry[];
-  monsters: Monster[];
   messages: StampedMessage[];
   timers: Timer[];
 }
