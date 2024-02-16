@@ -36,8 +36,8 @@ function usePlayerConnection(sessionCode: string, character: Character) {
   const connRef = useRef<DataConnection | null>(null);
   const stub = useLog(character.name, character.id);
 
+  /** Create own peer object with connection to shared PeerJS server. */
   function initialize() {
-    // Create own peer object with connection to shared PeerJS server
     let peer = new Peer({
       debug: 3,
       config: { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] },
@@ -72,6 +72,7 @@ function usePlayerConnection(sessionCode: string, character: Character) {
     });
   }
 
+  /** Join a given session. */
   function join(serverId: string) {
     // Close old connection
     if (connRef.current) {
@@ -135,12 +136,14 @@ function usePlayerConnection(sessionCode: string, character: Character) {
     });
   }
 
+  /** Stamp and send message. */
   function log(m: GameMessage) {
     if (connRef.current) {
       connRef.current.send(stamp(character, m));
     }
   }
 
+  /** Send message without stamping. */
   function syncLog(m: SyncMessage) {
     if (connRef.current) {
       connRef.current.send(m);

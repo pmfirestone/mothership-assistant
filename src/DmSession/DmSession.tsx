@@ -262,6 +262,7 @@ export function DmSession({ game, setGame }: Props) {
   }, []);
 
   useEffect(() => {
+    // Check for elapsed timers and display.
     const finishedTimers = game.timers
       .filter((t) => t.currentTimeInMSec >= t.intervalInSec * 1000)
       .map((t) => t.id);
@@ -294,6 +295,7 @@ export function DmSession({ game, setGame }: Props) {
     }
   }, [game]);
   useEffect(() => {
+    // Advance unpaused timers.
     let previousTick = new Date();
     let previousRunningTimerIds = timerRef.current
       .filter((t) => !t.isPaused)

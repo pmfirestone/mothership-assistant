@@ -5,6 +5,7 @@ export interface Entry<T> {
 
 export type EntryRecord<T> = Record<string, Entry<T>>;
 
+/** Local storage for game data of type T. */
 export interface Repository<T> {
   saveNew(newVal: T): string;
   update(id: string, setter: (c: T) => T): void;
