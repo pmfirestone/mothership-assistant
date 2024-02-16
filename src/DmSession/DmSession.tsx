@@ -80,7 +80,18 @@ function useDmConnection(
 
     const peer = new Peer({
       debug: 3,
-      config: { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] },
+      config: {
+        iceServers: [
+          {
+            urls: "stun:stun.relay.metered.ca:80",
+          },
+          {
+            urls: "turn:standard.relay.metered.ca:443",
+            username: "967df129ae1df83a73cc5a22",
+            credential: "uLs4iAAQm9D9gFUy",
+          },
+        ],
+      },
     });
 
     playerConnectionsRef.current = {};
