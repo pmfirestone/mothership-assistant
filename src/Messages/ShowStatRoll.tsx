@@ -2,11 +2,11 @@ import { analyseRoll } from "helpers";
 import { RollResult } from "Rules/types";
 
 export function ShowStatRoll(rollResult: RollResult) {
-  const { rollDescritpion, rollValue, target, isSuccess, result, isCritical } =
+  const { rollDescription, rollValue, target, isSuccess, result, isCritical } =
     analyseRoll(rollResult);
   return (
     <div>
-      <div>Stat roll: {rollDescritpion}</div>
+      <div>Stat roll: {rollDescription}</div>
       {result.map((r, i) => (
         <span
           key={i}

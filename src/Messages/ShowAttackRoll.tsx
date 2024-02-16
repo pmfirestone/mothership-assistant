@@ -9,7 +9,7 @@ export function ShowAttackRoll({
   weaponId,
   context,
 }: AttackRollResult & { context: MessageContext }) {
-  const { rollDescritpion, rollValue, target, isSuccess, result, isCritical } =
+  const { rollDescription, rollValue, target, isSuccess, result, isCritical } =
     analyseRoll(roll);
   const weapon =
     context.type === "player"
@@ -18,7 +18,7 @@ export function ShowAttackRoll({
   const damages = weapon !== undefined ? weapon.damage : [];
   return (
     <div>
-      <div>Stat roll: {rollDescritpion}</div>
+      <div>Stat roll: {rollDescription}</div>
       {result.map((r, i) => (
         <span
           key={i}

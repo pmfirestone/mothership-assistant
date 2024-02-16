@@ -374,7 +374,7 @@ export interface RollAnalysis extends RollResult {
   rollValue: number;
   isSuccess: boolean;
   isCritical: boolean;
-  rollDescritpion: string;
+  rollDescription: string;
 }
 
 export interface AttackRollResult {

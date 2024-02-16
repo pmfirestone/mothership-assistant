@@ -112,7 +112,7 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
 
   const skillDescription =
     skillDefinition !== null ? ` + ${skillDefinition?.name}` : "";
-  const rollDescritpion = `${stat.name}${skillDescription}${rollModeDescr[rollMode]}`;
+  const rollDescription = `${stat.name}${skillDescription}${rollModeDescr[rollMode]}`;
   return {
     ...rollResult,
     skillDefinition,
@@ -121,7 +121,7 @@ export function analyseRoll(rollResult: RollResult): RollAnalysis {
     rollValue,
     isSuccess,
     isCritical,
-    rollDescritpion,
+    rollDescription
   };
 }
 
