@@ -20,25 +20,33 @@ This is a fork of the original, from https://github.com/sbergot/mothership-assis
 ## In development
 
 - Guarantee implementation of 1e rules as written. To this end, test as much as posisble.
-- Implement taking damage, taking armor into account.
 
-## Being considered
-
+## Future plans:
+- UI review:
+  - Better font hierarchy.
+  - Reduce various font sizes.
+  - Make the UI denser.
+  - Design a better "select" component instead of using buttons.
+  - Show players other players in the session.
 - Allow warden to rename Monster/NPC/Custom.
-- Allow warden to transfert an NPC into a contractor.
+- Allow warden to transfer an NPC into a contractor. => Contractors are now identical to al other NPCs.
 - Enable rolls for contractors.
 - Put session code and player connections in separate warden tab.
-- "Library"
-  - Stored in local storage
-  - Warden tab to allow export/import tables from library
-  - Can export/import library from main menu
-- Armor/weapons/equipment/contractors customization
-- UI review:
-  - Better font hierarchy
-  - Reduce various font sizes
-  - Make the UI denser
-  - Design a better "select" component instead of using buttons
-  - Show players other
-- Check for the possibility to integrate with portraits from ashen-victor.itch.io
-- Import/export characters from the mobile app
-- Ship management
+- "Library" of components.
+  - Requires the JSON schema used to represent entities to stabilize.
+  - Stored in local storage.
+  - Warden tab to allow export/import tables from library.
+  - Can export/import library from main menu.
+- Armor/weapons/equipment/contractors customization.
+  - Currently these are stored in JSON objects in the source: the only way to
+    add new ones is by adding to the source code. Perhaps the "library" of
+    items can be a way to do this?
+- Add portraits and images to items and characters.
+  - Integrate with ashen-victor.itch.io.
+- Import/export characters from the mobile app: this requires comparing JSON
+  schema or at least converting between them.
+  - Is the schema documented anywhere?
+- Ship management.
+
+## Completed
+- Implement taking damage, taking armor into account.
