@@ -8,7 +8,8 @@ interface Props extends WriteBaseChar, SetMode {
 }
 
 const fields: Field<Armor>[] = [
-  simpleField("armorPoints", "AP"),
+  simpleField("armorPoints", "Armor Points (AP)"),
+  simpleField("damageReduction", "Damage Reduction (DR)"),
   simpleField("oxygenSupply", "O2 supply"),
   simpleField("armorSpeed", "speed"),
   simpleField("notes", "special"),
