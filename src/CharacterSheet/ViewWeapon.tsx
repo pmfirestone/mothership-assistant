@@ -1,6 +1,6 @@
 import { formatCredits, updateInList } from "helpers";
 import { useState } from "react";
-import { Weapon } from "Rules/types";
+import { Damage, Weapon } from "Rules/types";
 import { Block, Button, Title } from "UI/Atoms";
 import { Rating } from "UI/Molecules";
 import { Field, ItemDetails, simpleField } from "UI/Organisms/ItemDetails";
@@ -14,8 +14,8 @@ interface Props extends WriteBaseChar, SetMode {
 const fields: Field<Weapon>[] = [
   simpleField("weaponRange", "range"),
   simpleField("shots", "shots"),
-  simpleField("damage", "wound"),
   simpleField("damageString", "damage"),
+  simpleField("wound", "wound"),
   simpleField("special", "special"),
   simpleField("magazines", "magazines"),
   simpleField("magazineSize", "magazine size"),
