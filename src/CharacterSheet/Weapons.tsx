@@ -4,7 +4,7 @@ import { ReadWriteBaseChar, SetMode, WriteBaseChar } from "./types";
 import { FireIcon } from "UI/Icons";
 import { spendAmmoForWeapon } from "Services/characterServices";
 import { Log } from "Messages/types";
-import { rollDamages } from "Services/damageServices";
+import { rollDamage } from "Services/damageServices";
 
 export function Weapons({
   character,
@@ -88,7 +88,7 @@ function Weapon({ weapon, setCharacter, setMode, log }: WeaponProps) {
             log({
               type: "DamageMessage",
               props: {
-                ...rollDamages(weapon.damage[0], weapon.critical, false),
+                ...rollDamage(weapon.damage[0]),
               },
             });
           }}

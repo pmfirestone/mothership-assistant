@@ -10,7 +10,7 @@ import { Armor } from "./Armor";
 import { Contractors } from "./Contractors";
 import { ContractorSheet } from "./Contractors/ContractorSheet";
 import { EditStats } from "./EditStats";
-import { Equipment } from "./Equipment";
+import { EquipmentElem } from "./Equipment";
 import { Identity } from "./Identity";
 import { RollSave } from "./RollSave";
 import { RollStat } from "./RollStat";
@@ -326,7 +326,7 @@ export function CharacterSheet({
         setCharacter={setCharacter}
       />
       <Armor character={character} setMode={setMode} />
-      <Equipment character={character} setMode={setMode} />
+      <EquipmentElem character={character} setMode={setMode} />
       <Contractors character={character} setMode={setMode} />
     </div>
   );

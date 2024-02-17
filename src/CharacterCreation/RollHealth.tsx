@@ -7,7 +7,7 @@ import { StepProps } from "./types";
 
 export function RollHealth({ character, onConfirm }: StepProps) {
   const [newCharacter, setCharacter] = useState({ ...character });
-  const done = newCharacter.maxHealth > 0;
+  const done = (newCharacter?.maxHealth ?? 0) > 0;
 
   function rollHealth(): void {
     const maxHealth = roll(1, 10) + 10;
@@ -27,8 +27,8 @@ export function RollHealth({ character, onConfirm }: StepProps) {
           <Gauge
             title="Health"
             limitName="Maximum"
-            current={newCharacter.health}
-            limit={newCharacter.maxHealth}
+            current={newCharacter.health ?? 0}
+            limit={newCharacter.maxHealth ?? 0}
           />
           <Gauge
             title="Wounds"

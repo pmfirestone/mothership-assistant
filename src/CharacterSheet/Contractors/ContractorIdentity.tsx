@@ -1,14 +1,14 @@
 import { StringProperties } from "BaseTypes";
 import { formatCredits } from "helpers";
-import { Contractor } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 import { Block } from "UI/Atoms";
-import { ReadContractor, ReadWriteContractor } from "./types";
+import { ReadWriteContractor } from "./types";
 
 function Field({
   contractor,
   setContractor,
   field,
-}: ReadWriteContractor & { field: StringProperties<Contractor> }) {
+}: ReadWriteContractor & { field: StringProperties<NonPlayerCharacter> }) {
   return (
     <input
       className="input"

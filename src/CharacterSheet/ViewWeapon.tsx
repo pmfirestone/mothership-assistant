@@ -14,7 +14,7 @@ interface Props extends WriteBaseChar, SetMode {
 const fields: Field<Weapon>[] = [
   simpleField("weaponRange", "range"),
   simpleField("shots", "shots"),
-  simpleField("critical", "critical"),
+  simpleField("damage", "wound"),
   simpleField("damageString", "damage"),
   simpleField("special", "special"),
   simpleField("magazines", "magazines"),

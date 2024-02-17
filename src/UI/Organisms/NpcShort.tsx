@@ -1,9 +1,9 @@
-import { Npc } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 import { Rating, Gauge, BlockWithTitle, EntryHeader } from "UI/Molecules";
 
 interface Props {
-  npc: Npc;
-  setNpc(setter: (m: Npc) => Npc): void;
+  npc: NonPlayerCharacter;
+  setNpc(setter: (m: NonPlayerCharacter) => NonPlayerCharacter): void;
   deleteNpc(): void;
 }
 

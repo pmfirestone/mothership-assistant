@@ -18,7 +18,7 @@ export const weaponsColumns: Column<Weapon>[] = [
   simpleColumn("name"),
   simpleColumn("weaponType"),
   simpleColumn("damageString"),
-  simpleColumn("critical"),
+  simpleColumn("damage"),
   simpleColumn("magazines"),
   simpleColumn("magazineSize"),
   simpleColumn("shots"),
@@ -31,7 +31,7 @@ export const meleeWeaponsColumns: Column<Weapon>[] = [
   simpleColumn("name"),
   simpleColumn("weaponType"),
   simpleColumn("damageString"),
-  simpleColumn("critical"),
+  simpleColumn("damage"),
   simpleColumn("special", "text-xs"),
   simpleColumn("cost"),
 ];

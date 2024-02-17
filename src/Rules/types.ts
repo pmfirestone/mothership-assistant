@@ -89,7 +89,7 @@ export type WeaponRangeType = "adjacent" | "close" | "long";
 
 export type WoundType = "blunt" | "bleeding" | "gunshot" | "fire" | "gore";
 
-export type CriticalType =
+export type WoundDescription =
   | "Gunshot"
   | "Gunshot [-]"
   | "Gunshot [+]"
@@ -108,7 +108,7 @@ export type CriticalType =
   | "Bleeding [+] or Gore [+]"
   | "Bleeding + Gore";
 
-export interface NormalizedCriticalType {
+export interface NormalizedWound {
   woundType: WoundType;
   rollMode: RollMode;
 }
@@ -144,6 +144,7 @@ export type ConditionType =
   | "heartAttack";
 
 export type ContractorType =
+  | ""
   | "archaeologist"
   | "asteroidMiner"
   | "android"
@@ -213,22 +214,6 @@ export interface CustomEntry extends WithId {
   excluded: boolean;
 }
 
-export interface Damage {
-  damageType: DamageType;
-  amount: number;
-  rollMode: RollMode;
-  antiArmor?: boolean;
-}
-
-export type InflictedDamageType = "health" | "wounds";
-
-export interface InflictedDamage extends Damage {
-  name?: string;
-  rolledAmount: RollWithMode;
-  criticalType: CriticalType;
-  inflicted: InflictedDamageType;
-}
-
 export interface Wound {
   description: string;
   woundType: WoundType;
@@ -255,7 +240,6 @@ export interface Weapon extends WithId {
   shots: number | null;
   magazineSize: number | null;
   magazines: number | null;
-  critical: CriticalType;
   special: string;
   weaponType: WeaponType;
   damage: Damage[];
@@ -304,7 +288,7 @@ export interface Character extends WithId {
 }
 
 export interface NonPlayerCharacter extends Character, CustomEntry {
-  type?: ContractorType;
+  type: ContractorType;
   occupation: string;
   salary: number;
   combat: number;
@@ -395,6 +379,32 @@ export interface RollWithMode {
   result: number;
 }
 
+/** Damage to be dealt. */
+export interface Damage {
+  /** The kind of dice or die, or direct damage, or direct wounds. */
+  damageType: DamageType;
+  /** The type of damage to compute: health or wounds. */
+  inflicted: InflictedDamageType;
+  /** The number of die, or the flat damage or wounds. */
+  amount: number;
+  /** A flat bonus to damage. */
+  minDamage: number;
+  /** Whether to destroy armor. */
+  antiArmor: boolean;
+  /** How to roll the damage: normal, advantage, or disadvantage. */
+  rollMode: RollMode;
+  /** Type of wound to deal and how to roll it. */
+  wound: NormalizedWound[];
+}
+
+export type InflictedDamageType = "health" | "wounds";
+
+/** Damage that has been rolled. */
+export interface InflictedDamage extends Damage {
+  /** Rolled dice: inserted by RNG. */
+  roll: RollWithMode;
+}
+
 export interface PanicRoll {
   stress: number;
   rollMode: RollMode;
@@ -427,13 +437,13 @@ export interface WoundEffectEntry {
 export interface Attack extends WithId {
   name: string;
   description: string;
-  critical: NormalizedCriticalType;
   damage: Damage;
 }
 
 export interface Game {
   title: string;
   npcs: NonPlayerCharacter[];
+  monsters: NonPlayerCharacter[];
   customEntries: CustomEntry[];
   messages: StampedMessage[];
   timers: Timer[];

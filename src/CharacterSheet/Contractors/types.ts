@@ -1,11 +1,11 @@
-import { Contractor } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 
 export interface ReadContractor {
-  contractor: Contractor;
+  contractor: NonPlayerCharacter;
 }
 
 export interface WriteContractor {
-  setContractor(setter: (c: Contractor) => Contractor): void;
+  setContractor(setter: (c: NonPlayerCharacter) => NonPlayerCharacter): void;
 }
 
 export type ReadWriteContractor = ReadContractor & WriteContractor;

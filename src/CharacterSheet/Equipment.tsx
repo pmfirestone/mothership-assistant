@@ -1,13 +1,13 @@
 import { Block, Button, Divider, Title } from "UI/Atoms";
 import { ReadBaseChar, SetMode } from "./types";
 import { formatCredits } from "helpers";
-import { BaseCharacter, PlayerCharacter } from "Rules/types";
+import { Character, Equipment, PlayerCharacter } from "Rules/types";
 
-function isCharacter(c: BaseCharacter): c is PlayerCharacter {
+function isCharacter(c: Character): c is PlayerCharacter {
   return (c as any).credits != undefined;
 }
 
-export function Equipment({ character, setMode }: ReadBaseChar & SetMode) {
+export function EquipmentElem({ character, setMode }: ReadBaseChar & SetMode) {
   return (
     <Block variant="light">
       <Title>Equipment</Title>
@@ -23,7 +23,7 @@ export function Equipment({ character, setMode }: ReadBaseChar & SetMode) {
             {formatCredits(character.credits)}
           </Button>
         )}
-        {character.equipment.map((e) => (
+        {character.equipment.map((e: Equipment) => (
           <Button
             key={e.id}
             dark

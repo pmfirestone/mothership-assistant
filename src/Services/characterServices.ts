@@ -1,6 +1,6 @@
 import { updateInList } from "helpers";
 import { uuidv4 } from "./storageServices";
-import { BaseCharacter, PlayerCharacter } from "Rules/types";
+import { Character, PlayerCharacter } from "Rules/types";
 
 export function initCharacter(): PlayerCharacter {
   return {
@@ -45,7 +45,7 @@ export function initCharacter(): PlayerCharacter {
   };
 }
 
-export function spendAmmoForWeapon<T extends BaseCharacter>(
+export function spendAmmoForWeapon<T extends Character>(
   character: T,
   weaponId: string,
 ): T {

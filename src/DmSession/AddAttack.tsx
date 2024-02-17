@@ -1,4 +1,10 @@
-import { Damage, DamageType, RollMode, WoundType, Monster } from "Rules/types";
+import {
+  Damage,
+  DamageType,
+  RollMode,
+  WoundType,
+  NonPlayerCharacter,
+} from "Rules/types";
 import { Block, Button, Divider } from "UI/Atoms";
 import { useEffect, useState } from "react";
 import { allWoundTables } from "Rules/Data/wounds";
@@ -8,6 +14,7 @@ import { uuidv4 } from "Services/storageServices";
 import {
   getDamageDescription,
   getRollModeSuffix,
+  normalizeWoundDescription,
 } from "Services/damageServices";
 
 const allDiceTypes: DamageType[] = [
@@ -55,7 +62,7 @@ export function AddAttack({
     setRollMode(attack.damage.rollMode);
     setDiceType(attack.damage.damageType);
     setDiceNbr(attack.damage.amount);
-    setWoundType(attack.critical.woundType);
+    setWoundType(attack.damage.wound[0].woundType);
   }, [attackId]);
 
   function back() {
@@ -86,10 +93,16 @@ export function AddAttack({
       amount: diceNbr,
       rollMode,
       damageType: diceType,
+      inflicted: "health",
+      antiArmor: false,
+      minDamage: 0,
+      wound: normalizeWoundDescription("Bleeding"),
     };
   }
 
-  function updateMonster(setter: (m: Monster) => Monster) {
+  function updateMonster(
+    setter: (m: NonPlayerCharacter) => NonPlayerCharacter,
+  ) {
     setGame((g) => ({
       ...g,
       monsters: updateInList(g.monsters, monsterId, setter),

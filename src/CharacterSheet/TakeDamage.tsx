@@ -2,12 +2,12 @@ import { Log } from "Messages/types";
 import { SetMode, WriteCharacter } from "./types";
 import { useState } from "react";
 import { Block, Button, Divider, Title } from "UI/Atoms";
-import { InflictedDamage, InflictedDamageType } from "Rules/types";
+import { InflictedDamage, PlayerCharacter } from "Rules/types";
 import { allWoundTables } from "Rules/Data/wounds";
 import {
-  woundTypeToCriticalType,
+  normalizedWoundToDescription,
   applyDamage,
-  normalizeCriticalType,
+  normalizeWoundDescription,
 } from "Services/damageServices";
 
 export function TakeDamage({
@@ -16,62 +16,46 @@ export function TakeDamage({
   log,
 }: WriteCharacter & SetMode & Log) {
   const [damage, setDamage] = useState<InflictedDamage>({
-    amount: { result: 0, rolls: [0] },
+    damageType: "xd10",
     inflicted: "health",
-    criticalType: "Bleeding",
+    amount: 1,
+    minDamage: 0,
+    antiArmor: false,
+    rollMode: "normal",
+    wound: normalizeWoundDescription("Gunshot"),
+    roll: { rolls: [], result: 0 },
   });
-  const normalizedWoundType = normalizeCriticalType(damage.criticalType)[0]
-    .woundType;
   return (
     <Block variant="light">
-      <Title>Take damages</Title>
+      <Title>Take damage</Title>
       <div className="flex flex-col gap-2">
         <input
           className="input"
           type="number"
-          value={damage.amount.result}
+          value={damage?.roll.result.toString()}
           onChange={(e) => {
             setDamage((d) => {
               const value = parseInt(e.target.value);
-              return { ...d, amount: { result: value, rolls: [value] } };
+              return { ...d, roll: { result: value, rolls: [value] } };
             });
           }}
         />
         <Divider />
-        <div className="flex flex-wrap justify-center gap-2">
-          {allWoundTables.map((wt) => (
-            <div className="shrink-0">
-              <Button
-                light={normalizedWoundType != wt.woundType}
-                rounded
-                onClick={() => {
-                  setDamage((d) => ({
-                    ...d,
-                    criticalType: woundTypeToCriticalType(wt.woundType),
-                  }));
-                }}
-              >
-                {wt.name}
-              </Button>
-            </div>
-          ))}
-        </div>
-        <Divider />
         <div className="flex justify-center gap-2">
           <Button
-            light={damage.inflicted !== "health"}
+            light={damage?.inflicted !== "health"}
             rounded
             onClick={() => {
-              setDamage((d) => ({ ...d, inflicted: "health" }));
+              setDamage((d) => ({ ...d!, inflicted: "health" }));
             }}
           >
             health
           </Button>
           <Button
-            light={damage.inflicted !== "wounds"}
+            light={damage?.inflicted !== "wounds"}
             rounded
             onClick={() => {
-              setDamage((d) => ({ ...d, inflicted: "wounds" }));
+              setDamage((d) => ({ ...d!, inflicted: "wounds" }));
             }}
           >
             wounds
@@ -83,7 +67,8 @@ export function TakeDamage({
             dark
             rounded
             onClick={() => {
-              setCharacter((c) => applyDamage(c, log, damage));
+              setCharacter((c) => applyDamage(c, damage) as PlayerCharacter);
+              log({ type: "DamageMessage", props: damage });
               setMode({ mode: "CharacterSheet" });
             }}
           >

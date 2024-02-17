@@ -1,8 +1,8 @@
-import { Contractor } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 import { Rating, Gauge } from "UI/Molecules";
 
 interface Props {
-  contractor: Contractor;
+  contractor: NonPlayerCharacter;
   onTitleClick(): void;
 }
 

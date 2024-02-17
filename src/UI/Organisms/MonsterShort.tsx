@@ -1,10 +1,10 @@
 import { SetDmMode } from "DmSession/types";
 import { Log } from "Messages/types";
-import { Monster, RollMode } from "Rules/types";
+import { NonPlayerCharacter, RollMode } from "Rules/types";
 import {
   deNormalizeCriticalType,
   getDamageDescription,
-  rollDamages,
+  rollDamage,
 } from "Services/damageServices";
 import { rollStat } from "Services/diceServices";
 import { Button } from "UI/Atoms";
@@ -12,8 +12,8 @@ import { FireIcon } from "UI/Icons";
 import { Rating, Gauge, BlockWithTitle, EntryHeader } from "UI/Molecules";
 
 interface Props extends SetDmMode, Log {
-  monster: Monster;
-  setMonster(setter: (m: Monster) => Monster): void;
+  monster: NonPlayerCharacter;
+  setMonster(setter: (m: NonPlayerCharacter) => NonPlayerCharacter): void;
   deleteMonster(): void;
 }
 
@@ -37,13 +37,13 @@ export function MonsterShort({
   );
   function rollMonsterStat(
     stat: "combat" | "speed" | "instinct",
-    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
   ) {
     const rollMode: RollMode = event.shiftKey
       ? "advantage"
       : event.ctrlKey
-      ? "disadvantage"
-      : "normal";
+        ? "disadvantage"
+        : "normal";
     const results = rollStat({
       stat: { value: monster.combat, name: stat },
       skill: null,
@@ -82,8 +82,8 @@ export function MonsterShort({
             title="Health"
             limitName="Maximum"
             onChange={(n) => setMonster((m) => ({ ...m, health: n }))}
-            current={monster.health}
-            limit={monster.maxHealth}
+            current={monster.health ?? 0}
+            limit={monster.maxHealth ?? 0}
             onChangeLimit={(n) => setMonster((m) => ({ ...m, maxHealth: n }))}
           />
           <Gauge
@@ -113,18 +113,13 @@ export function MonsterShort({
               log({
                 type: "DamageMessage",
                 props: {
-                  ...rollDamages(
-                    a.damage,
-                    deNormalizeCriticalType(a.critical),
-                    false,
-                    a.name
-                  ),
+                  ...rollDamage(a.damage),
                 },
               });
             }}
           >
             {a.name} {getDamageDescription(a.damage)} -{" "}
-            {deNormalizeCriticalType(a.critical)}
+            {deNormalizeCriticalType(a.damage.wound[0])}
             <FireIcon />
           </Button>
         ))}

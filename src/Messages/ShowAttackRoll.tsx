@@ -1,8 +1,8 @@
 import { analyseRoll } from "helpers";
-import { AttackRollResult, RollResult } from "Rules/types";
+import { AttackRollResult } from "Rules/types";
 import { MessageContext } from "./types";
 import { Button } from "UI/Atoms";
-import { getDamageDescription, rollDamages } from "Services/damageServices";
+import { getDamageDescription, rollDamage } from "Services/damageServices";
 
 export function ShowAttackRoll({
   roll,
@@ -41,7 +41,7 @@ export function ShowAttackRoll({
               onClick={() => {
                 context.log({
                   type: "DamageMessage",
-                  props: { ...rollDamages(d, weapon!.critical, isCritical) },
+                  props: { ...rollDamage(d) },
                 });
               }}
             >

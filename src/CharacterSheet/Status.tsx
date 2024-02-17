@@ -19,8 +19,8 @@ export function Status({
           title="Health"
           onChange={(n) => setCharacter((char) => ({ ...char, health: n }))}
           limitName="Maximum"
-          current={character.health}
-          limit={character.maxHealth}
+          current={character.health ?? 0}
+          limit={character.maxHealth ?? 0}
         />
         <Gauge
           title="Wounds"

@@ -4,7 +4,6 @@ import { applyRollMode, roll } from "Services/diceServices";
 import { Block, Button, Divider } from "UI/Atoms";
 import { useState } from "react";
 import { allWoundTables } from "Rules/Data/wounds";
-import { woundTypeToCriticalType } from "Services/damageServices";
 
 const allDiceTypes = [5, 10, 20, 100];
 
@@ -20,14 +19,18 @@ export function Roll({ log }: Log) {
   function rollDices() {
     const result = applyRollMode(rollMode, () => roll(diceNbr, diceType));
     if (dealDamage) {
+      {
+        /*
       log({
         type: "DamageMessage",
-        props: {
-          amount: result,
-          criticalType: woundTypeToCriticalType(woundType),
-          inflicted: inflictedType,
+          props: {
+	      damageType: `${diceNbr}d${diceType}`,
+            roll: result,
+	    wound: [{ woundType: woundType, rollMode: "normal" }],
+            inflicted: inflictedType,
         },
-      });
+      }); */
+      }
     } else {
       log({
         type: "GenericRollMessage",

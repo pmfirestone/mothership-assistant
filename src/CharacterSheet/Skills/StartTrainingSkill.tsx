@@ -36,7 +36,7 @@ export function StartTrainingSkill({
               skillInProgress: skill,
               skillTrainingYearsRemaining: levelDefinition.trainingTimeYear,
               skillTrainingMonthsRemaining: 0,
-              credits: character.credits - levelDefinition.trainingCost
+              credits: character.credits - levelDefinition.trainingCost,
             }));
             setMode({ mode: "TrainSkill" });
           }}

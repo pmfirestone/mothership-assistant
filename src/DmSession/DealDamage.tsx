@@ -2,8 +2,8 @@ import { Block, Button, Title } from "UI/Atoms";
 import { ReadWriteGame, SetDmMode } from "./types";
 import { useState } from "react";
 import { updateInList } from "helpers";
-import { applyHealthDamage, applyWoundDamage } from "Services/damageServices";
-import { InflictedDamage } from "Rules/types";
+import { applyDamage } from "Services/damageServices";
+import { Character, InflictedDamage, NonPlayerCharacter } from "Rules/types";
 
 interface Props extends ReadWriteGame, SetDmMode {
   damage: InflictedDamage;
@@ -51,8 +51,10 @@ export function DealDamage({ game, setGame, setMode, damage }: Props) {
             if (selection?.type === "npc") {
               setGame((g) => ({
                 ...g,
-                npcs: updateInList(g.npcs, selection?.id, (n) =>
-                  applyWoundDamage(n, damage),
+                npcs: updateInList(
+                  g.npcs,
+                  selection?.id,
+                  (n) => applyDamage(n, damage) as NonPlayerCharacter,
                 ),
               }));
             }
@@ -62,7 +64,7 @@ export function DealDamage({ game, setGame, setMode, damage }: Props) {
                 monsters: updateInList(
                   g.monsters,
                   selection?.id,
-                  (n) => applyHealthDamage(n, damage).newChar,
+                  (n) => applyDamage(n, damage) as NonPlayerCharacter,
                 ),
               }));
             }

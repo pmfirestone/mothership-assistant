@@ -1,4 +1,4 @@
-import { NormalizedCriticalType, WoundType } from "Rules/types";
+import { NormalizedWound, WoundType } from "Rules/types";
 import { Block, Button, Divider } from "UI/Atoms";
 import { useState } from "react";
 import { ReadWriteCharacter, SetMode, WriteCharacter } from "./types";
@@ -9,7 +9,7 @@ import { rollWound } from "Services/damageServices";
 interface Props extends ReadWriteCharacter, SetMode, Log {}
 
 export function RollWound({ character, setCharacter, setMode, log }: Props) {
-  const [woundRoll, setWoundRoll] = useState<NormalizedCriticalType>({
+  const [woundRoll, setWoundRoll] = useState<NormalizedWound>({
     rollMode: "normal",
     woundType: "bleeding",
   });

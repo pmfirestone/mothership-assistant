@@ -9,6 +9,7 @@ import {
 } from "Rules/types";
 import { allWeaponDict } from "./weapons";
 import { allEquipmentDict } from "./equipment";
+import { normalizeWoundDescription } from "Services/damageServices";
 
 interface DataRef<T> {
   ref: string;
@@ -129,7 +130,17 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
             weaponType: "Combat Knife",
             baseType: "knife",
             damageString: "1d5 DMG [+]",
-            damage: [{ damageType: "xd5", amount: 1, rollMode: "advantage" }],
+            damage: [
+              {
+                damageType: "xd5",
+                inflicted: "health",
+                amount: 1,
+                minDamage: 0,
+                antiArmor: false,
+                rollMode: "advantage",
+                wound: normalizeWoundDescription("Bleeding [+]"),
+              },
+            ],
           },
         },
       ],
@@ -297,7 +308,11 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
     {
       armors: [{ ref: "vaccsuit" }],
       weapons: [{ ref: "foamGun", custom: { magazines: 0, shots: 2 } }],
-      equipments: [{ ref: "foldableStretcher" }, { ref: "firstAidKit" }, { ref: "radiationPills" }],
+      equipments: [
+        { ref: "foldableStretcher" },
+        { ref: "firstAidKit" },
+        { ref: "radiationPills" },
+      ],
     },
     {
       armors: [labCoat],
@@ -336,7 +351,12 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
     },
     {
       armors: [{ ref: "standardCrewAttire" }],
-      weapons: [{ ref: "scalpel", custom: { weaponType: "Utility knife", baseType: "utilityKnife" } }],
+      weapons: [
+        {
+          ref: "scalpel",
+          custom: { weaponType: "Utility knife", baseType: "utilityKnife" },
+        },
+      ],
       equipments: [
         { ref: "cyberneticDiagnostic" },
         simpleEquipment("Duct Tape", {}),
@@ -368,7 +388,10 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
     },
     {
       armors: [{ ref: "vaccsuit" }],
-      weapons: [{ ref: "revolver", custom: { magazines: 0 } }, { ref: "crowbar" }],
+      weapons: [
+        { ref: "revolver", custom: { magazines: 0 } },
+        { ref: "crowbar" },
+      ],
       equipments: [{ ref: "flashlight" }],
     },
     {
@@ -415,7 +438,10 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
       weapons: [{ ref: "nailGun", custom: { magazines: 0 } }],
       equipments: [
         simpleEquipment("Head Lamp", {}),
-        { ref: "assortedTools", custom: { name: "Toolbelt", baseType: "toolbelt" } },
+        {
+          ref: "assortedTools",
+          custom: { name: "Toolbelt", baseType: "toolbelt" },
+        },
         simpleEquipment("Lunch Box", {}),
       ],
     },
@@ -446,4 +472,3 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
     },
   ],
 };
-

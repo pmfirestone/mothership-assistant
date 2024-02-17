@@ -2,7 +2,7 @@ import { Title, Button } from "UI/Atoms";
 import { updateInList, deleteInList } from "helpers";
 import { useState } from "react";
 import { ReadWriteGame } from "./types";
-import { Npc } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 import { uuidv4 } from "Services/storageServices";
 import { NpcShort } from "UI/Organisms/NpcShort";
 
@@ -10,8 +10,9 @@ export function NPCs({ game, setGame }: ReadWriteGame) {
   const [newNpcName, setNewNpcName] = useState("");
   const { npcs } = game;
 
-  function newNpc(name: string): Npc {
+  function newNpc(name: string): NonPlayerCharacter {
     return {
+      type: "",
       combat: 0,
       instinct: 0,
       maxWounds: 2,
@@ -21,6 +22,17 @@ export function NPCs({ game, setGame }: ReadWriteGame) {
       visibleToAll: false,
       id: uuidv4(),
       excluded: false,
+      pronouns: "",
+      occupation: "",
+      salary: 0,
+      loyalty: 0,
+      motivation: "",
+      attacks: [],
+      probability: { min: 0, max: 0 },
+      equipment: [],
+      armor: [],
+      items: [],
+      weapons: [],
     };
   }
 

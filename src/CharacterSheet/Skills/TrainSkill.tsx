@@ -22,10 +22,14 @@ export function TrainSkill({ character, setCharacter, setMode }: Props) {
         title="Time remaining in training"
         valueLeft={character.skillTrainingYearsRemaining || 0}
         titleLeft="Years"
-        onChangeLeft={(e) => setCharacter(char => ({...char, skillTrainingYearsRemaining: e}))}
+        onChangeLeft={(e) =>
+          setCharacter((char) => ({ ...char, skillTrainingYearsRemaining: e }))
+        }
         valueRight={character.skillTrainingMonthsRemaining || 0}
         titleRight="Months"
-        onChangeRight={(e) => setCharacter(char => ({...char, skillTrainingMonthsRemaining: e}))}
+        onChangeRight={(e) =>
+          setCharacter((char) => ({ ...char, skillTrainingMonthsRemaining: e }))
+        }
       />
       <Divider />
       <div className="flex justify-center gap-2">
@@ -38,7 +42,10 @@ export function TrainSkill({ character, setCharacter, setMode }: Props) {
               skillInProgress: null,
               skillTrainingYearsRemaining: 0,
               skillTrainingMonthsRemaining: 0,
-              skills: [...character.skills, { type: skill, lossOfConfidence: false }],
+              skills: [
+                ...character.skills,
+                { type: skill, lossOfConfidence: false },
+              ],
             }));
             setMode({ mode: "CharacterSheet" });
           }}

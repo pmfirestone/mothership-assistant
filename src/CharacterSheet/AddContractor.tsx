@@ -4,7 +4,7 @@ import {
   allContractors,
   allContractorDict,
 } from "Rules/Data/contractors";
-import { Contractor, ContractorType } from "Rules/types";
+import { NonPlayerCharacter, ContractorType } from "Rules/types";
 import { Block, Button, Title } from "UI/Atoms";
 import { formatCredits } from "helpers";
 import { Column, Counter, Table } from "UI/Organisms/Table";
@@ -20,7 +20,7 @@ function getDefaultSelection(): Record<ContractorType, number> {
   return res;
 }
 
-function rollContractor(base: Contractor): Contractor {
+function rollContractor(base: NonPlayerCharacter): NonPlayerCharacter {
   return {
     ...base,
     id: uuidv4(),
@@ -37,7 +37,7 @@ export function AddContractor({
     getDefaultSelection(),
   );
 
-  const columns: Column<Contractor>[] = [
+  const columns: Column<NonPlayerCharacter>[] = [
     {
       name: "Item",
       cell({ elt }) {
@@ -83,7 +83,7 @@ export function AddContractor({
     .reduce((a, b) => a + b, 0);
 
   function getNewContractors() {
-    const res: Contractor[] = [];
+    const res: NonPlayerCharacter[] = [];
     Object.entries(selected).forEach(([key, value]) => {
       for (let i = 0; i < value; i++) {
         res.push(rollContractor(allContractorDict[key as ContractorType]));

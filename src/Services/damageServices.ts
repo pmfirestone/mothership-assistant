@@ -1,11 +1,10 @@
 import { GameMessage } from "Messages/types";
 import { allWoundTablesDict } from "Rules/Data/wounds";
 import {
-  CriticalType,
-  NormalizedCriticalType,
+  NormalizedWound,
+  WoundDescription,
   Character,
   Armor,
-  NonPlayerCharacter,
   PlayerCharacter,
   InflictedDamage,
   Damage,
@@ -14,7 +13,7 @@ import {
 } from "Rules/types";
 import { applyRollMode, roll } from "./diceServices";
 
-export function woundTypeToCriticalType(wt: WoundType): CriticalType {
+export function normalizedWoundToDescription(wt: WoundType): WoundDescription {
   if (wt === "bleeding") {
     return "Bleeding";
   }
@@ -34,8 +33,8 @@ export function woundTypeToCriticalType(wt: WoundType): CriticalType {
 }
 
 export function deNormalizeCriticalType(
-  normalizedCriticalType: NormalizedCriticalType,
-): CriticalType {
+  normalizedCriticalType: NormalizedWound,
+): WoundDescription {
   const { rollMode, woundType } = normalizedCriticalType;
   if (woundType === "bleeding") {
     if (rollMode === "normal") {
@@ -96,9 +95,9 @@ export function deNormalizeCriticalType(
   throw new Error("unknown critical type");
 }
 
-export function normalizeCriticalType(
-  criticalType: CriticalType,
-): NormalizedCriticalType[] {
+export function normalizeWoundDescription(
+  criticalType: WoundDescription,
+): NormalizedWound[] {
   if (criticalType === "Bleeding") {
     return [{ woundType: "bleeding", rollMode: "normal" }];
   }
@@ -151,7 +150,10 @@ export function normalizeCriticalType(
     ];
   }
   if (criticalType === "Bleeding [+] or Gore [+]") {
-    return [{ woundType: "gore", rollMode: "advantage" }];
+    return [
+      { woundType: "gore", rollMode: "advantage" },
+      { woundType: "bleeding", rollMode: "advantage" },
+    ];
   }
 
   throw new Error("unknown critical type");
@@ -160,7 +162,7 @@ export function normalizeCriticalType(
 export function rollWound(
   character: PlayerCharacter,
   log: (m: GameMessage) => void,
-  woundRolls: NormalizedCriticalType[],
+  woundRolls: NormalizedWound[],
 ): PlayerCharacter {
   let newChar = { ...character };
   woundRolls.forEach((wr) => {
@@ -176,18 +178,34 @@ export function rollWound(
   return newChar;
 }
 
+/**
+ * Apply rolled damage to character.
+ *
+ * This function only damages health, wounds, and armor. Rolling for wounds and
+ * death is the resposibility of the caller.
+ *
+ * @param target The character to attack.
+ * @param damage The damage to inflict.
+ * @return A new character with wound counts, damage, and armor updated as appropriate.
+ */
 export function applyDamage(
   target: Character,
   damage: InflictedDamage,
 ): Character {
   let newTarget = { ...target };
+  // "Some attacks deal Wounds directly (bypassing any Armor or Damage Reduction)." PSG pg. 29.1
+  if (damage.inflicted === "wounds") {
+    newTarget.wounds += damage.amount;
+    return newTarget;
+  }
 
   // "Damage Reduction occurs first." PSG pg. 28.3
   const damageReduction: number = target.armor
     .filter((a: Armor) => a.damageReduction > 0)
     .map((a: Armor) => a.damageReduction)
     .reduce((acc, cur) => acc + cur, 0);
-  let passedThroughDamage = damage.rolledAmount.result - damageReduction;
+  let passedThroughDamage =
+    damage.roll.result + damage.minDamage - damageReduction;
 
   // "Weapons with Anti-Armor ignore and destroy armor whenever they hit." PSG pg. 28.3
   if (damage?.antiArmor) {
@@ -211,25 +229,84 @@ export function applyDamage(
     passedThroughDamage -= armorPoints;
   }
 
-  if (newTarget?.health) {
+  if (newTarget.health && damage.inflicted === "health") {
     // "When taking Damage, subtract it from Health." PSG 28.2
     while (passedThroughDamage > 0) {
+      // Ugly hack to calm the compiler: by the time this line is reached we know we have a health attribute.
+      newTarget?.health && newTarget.health--;
       passedThroughDamage--;
-      newTarget.health--;
-      // "If your health reaches zero, gain a Wound." PSG pg. 28.2
       if (newTarget.health == 0) {
+        // "If your health reaches zero, gain a Wound." PSG pg. 28.2
         newTarget.wounds++;
         // "Then, reset the character's Health to Maximum and subtract any carryover damage." PSG pg. 28.2
         newTarget.health = newTarget.maxHealth;
       }
     }
-    return newTarget;
   } else {
     // "If there is no Health listed, any damage causes a Wound." UCR pg. 2.6
-    // The caller should figure out what happens next.
     newTarget.wounds += 1;
-    return newTarget;
   }
+  return newTarget;
+}
+
+/**
+ * Roll for damage.
+ * @param damage The damage set up to apply RNG to, from a {@link Weapon} or {@link Attack}.
+ * @param rollMode Whether rolling normally, or with advantage or disadvantage.
+ * @param attackName The name of the attack.
+ * @return The damage with random numbers in it. The caller should interpret these.
+ */
+export function rollDamage(damage: Damage): InflictedDamage {
+  if (damage.damageType === "d100") {
+    return {
+      ...damage,
+      roll: applyRollMode(damage.rollMode, () => roll(1, 100)),
+    };
+  }
+  if (damage.damageType === "d10x10") {
+    return {
+      ...damage,
+      roll: applyRollMode(damage.rollMode, () => roll(1, 10) * 10),
+    };
+  }
+  if (damage.damageType === "d5MinusOneWounds") {
+    return {
+      ...damage,
+      roll: applyRollMode(damage.rollMode, () => roll(1, 5) - 1),
+    };
+  }
+  if (damage.damageType === "fixedDamage") {
+    return {
+      ...damage,
+      roll: { result: damage.amount, rolls: [damage.amount] },
+    };
+  }
+  if (damage.damageType === "fixedWounds") {
+    return {
+      ...damage,
+      roll: { result: damage.amount, rolls: [damage.amount] },
+    };
+  }
+  if (damage.damageType === "xd10") {
+    return {
+      ...damage,
+      roll: applyRollMode(damage.rollMode, () => roll(damage.amount, 10)),
+    };
+  }
+  if (damage.damageType === "xd20") {
+    return {
+      ...damage,
+      roll: applyRollMode(damage.rollMode, () => roll(damage.amount, 10)),
+    };
+  }
+  if (damage.damageType === "xd5") {
+    return {
+      ...damage,
+      roll: applyRollMode(damage.rollMode, () => roll(damage.amount, 5)),
+    };
+  }
+
+  throw new Error("unknown damage type");
 }
 
 export function getRollModeSuffix(rollMode: RollMode): string {
@@ -272,85 +349,4 @@ export function getDamageDescription(damages: Damage): string {
   }
 
   throw new Error("unknown damage type");
-}
-
-export function innerRollDamages(
-  damages: Damage,
-  criticalType: CriticalType,
-): InflictedDamage {
-  if (damages.damageType === "d100") {
-    return {
-      amount: applyRollMode(damages.rollMode, () => roll(1, 100)),
-      inflicted: "health",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "d10x10") {
-    return {
-      amount: applyRollMode(damages.rollMode, () => roll(1, 10) * 10),
-      inflicted: "health",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "d5MinusOneWounds") {
-    return {
-      amount: applyRollMode(damages.rollMode, () => roll(1, 5) - 1),
-      inflicted: "wounds",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "fixedDamage") {
-    return {
-      amount: { result: damages.amount, rolls: [damages.amount] },
-      inflicted: "health",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "fixedWounds") {
-    return {
-      amount: { result: damages.amount, rolls: [damages.amount] },
-      inflicted: "wounds",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "xd10") {
-    return {
-      amount: applyRollMode(damages.rollMode, () => roll(damages.amount, 10)),
-      inflicted: "health",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "xd20") {
-    return {
-      amount: applyRollMode(damages.rollMode, () => roll(damages.amount, 10)),
-      inflicted: "health",
-      criticalType,
-    };
-  }
-  if (damages.damageType === "xd5") {
-    return {
-      amount: applyRollMode(damages.rollMode, () => roll(damages.amount, 5)),
-      inflicted: "health",
-      criticalType,
-    };
-  }
-
-  throw new Error("unknown damage type");
-}
-
-export function rollDamages(
-  damages: Damage,
-  criticalType: CriticalType,
-  isCritical: boolean,
-  attackName: string = "",
-): InflictedDamage {
-  const damage = innerRollDamages(damages, criticalType);
-  if (isCritical) {
-    damage.amount.result *= 2;
-    damage.amount.rolls = damage.amount.rolls.map((v) => v * 2);
-  }
-  if (attackName) {
-    damage.name = attackName;
-  }
-  return damage;
 }

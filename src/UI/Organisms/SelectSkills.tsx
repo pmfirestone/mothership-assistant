@@ -17,7 +17,7 @@ interface SelectSkillProps {
 export function SelectSkill({ onSelect, filter, character }: SelectSkillProps) {
   const fullFilter = and(
     isNotSelected(character.skills),
-    and(isPrerequisiteOk(character.skills), filter)
+    and(isPrerequisiteOk(character.skills), filter),
   );
   const filteredSkills = allSkills.filter(fullFilter);
   const trainedSkills = filteredSkills.filter(isSkillLevel("Trained"));

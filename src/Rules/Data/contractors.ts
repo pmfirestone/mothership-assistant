@@ -1,4 +1,4 @@
-import { ContractorType, Contractor } from "Rules/types";
+import { ContractorType, NonPlayerCharacter } from "Rules/types";
 import { toDict } from "Services/storageServices";
 
 export const allContractorTypes: ContractorType[] = [
@@ -24,7 +24,7 @@ export const allContractorTypes: ContractorType[] = [
   "voidUrchin",
 ];
 
-export const allContractors: Contractor[] = [
+export const allContractors: NonPlayerCharacter[] = [
   {
     type: "archaeologist",
     id: "",
@@ -44,6 +44,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 0, max: 0 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "asteroidMiner",
@@ -64,6 +68,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 1, max: 9 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "android",
@@ -84,6 +92,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 10, max: 19 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "bodyguard",
@@ -104,6 +116,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 20, max: 24 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "captain",
@@ -124,6 +140,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 25, max: 29 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "chaplain",
@@ -144,6 +164,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 30, max: 34 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "corporateFixer",
@@ -164,6 +188,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 35, max: 39 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "doctor",
@@ -184,6 +212,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 40, max: 44 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "engineer",
@@ -204,6 +236,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 45, max: 49 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "gunner",
@@ -224,6 +260,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 50, max: 54 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "marineGrunt",
@@ -244,6 +284,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 55, max: 59 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "marineOfficer",
@@ -264,6 +308,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 60, max: 64 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "pilot",
@@ -284,6 +332,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 65, max: 69 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "pioneer",
@@ -304,6 +356,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 70, max: 74 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "scientist",
@@ -324,6 +380,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 75, max: 79 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "survivalGuide",
@@ -344,6 +404,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 80, max: 84 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "surgeon",
@@ -364,6 +428,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 85, max: 89 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "teamster",
@@ -384,6 +452,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 90, max: 94 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "therapist",
@@ -404,6 +476,10 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 95, max: 98 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
   {
     type: "voidUrchin",
@@ -424,10 +500,12 @@ export const allContractors: Contractor[] = [
     weapons: [],
     items: [],
     probability: { min: 99, max: 99 },
+    attacks: [],
+    description: "",
+    visibleToAll: true,
+    excluded: false,
   },
 ];
 
-export const allContractorDict: Record<ContractorType, Contractor> = toDict(
-  allContractors,
-  (c) => c.type
-);
+export const allContractorDict: Record<ContractorType, NonPlayerCharacter> =
+  toDict(allContractors, (c) => c.type ?? "");

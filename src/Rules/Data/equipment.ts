@@ -432,5 +432,5 @@ export const allEquipment: Equipment[] = [
 
 export const allEquipmentDict: Record<string, Equipment> = toDict(
   allEquipment,
-  (e) => e.baseType
+  (e) => e.baseType,
 );

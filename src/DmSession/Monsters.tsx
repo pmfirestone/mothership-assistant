@@ -3,7 +3,7 @@ import { MonsterShort } from "UI/Organisms/MonsterShort";
 import { updateInList, deleteInList } from "helpers";
 import { useState } from "react";
 import { ReadWriteGame, SetDmMode } from "./types";
-import { Monster } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 import { uuidv4 } from "Services/storageServices";
 import { Log } from "Messages/types";
 
@@ -16,13 +16,18 @@ export function Monsters({
   const [newMonsterName, setNewMonsterName] = useState("");
   const { monsters } = game;
 
-  function newMonster(name: string): Monster {
+  function newMonster(name: string): NonPlayerCharacter {
     return {
+      type: "",
+      occupation: "",
+      salary: 0,
+      loyalty: 0,
+      motivation: "",
       combat: 0,
       instinct: 0,
       maxWounds: 2,
       wounds: 0,
-      name,
+      name: name,
       description: "",
       visibleToAll: false,
       id: uuidv4(),
@@ -30,6 +35,12 @@ export function Monsters({
       maxHealth: 10,
       excluded: false,
       attacks: [],
+      pronouns: "",
+      armor: [],
+      weapons: [],
+      probability: { min: 0, max: 0 },
+      equipment: [],
+      items: [],
     };
   }
 

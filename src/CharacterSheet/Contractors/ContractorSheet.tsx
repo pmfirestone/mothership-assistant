@@ -3,7 +3,7 @@ import { AddCustomItem } from "CharacterSheet/AddCustomItem";
 import { AddEquipment } from "CharacterSheet/AddEquipment";
 import { AddWeapon } from "CharacterSheet/AddWeapon";
 import { Armor } from "CharacterSheet/Armor";
-import { Equipment } from "CharacterSheet/Equipment";
+import { EquipmentElem } from "CharacterSheet/Equipment";
 import { Modes, Wallet, WriteCharacter } from "CharacterSheet/types";
 import { ViewArmor } from "CharacterSheet/ViewArmor";
 import { ViewEquipment } from "CharacterSheet/ViewEquipment";
@@ -11,7 +11,7 @@ import { ViewWeapon } from "CharacterSheet/ViewWeapon";
 import { Weapons } from "CharacterSheet/Weapons";
 import { Log } from "Messages/types";
 import { useState } from "react";
-import { Contractor } from "Rules/types";
+import { NonPlayerCharacter } from "Rules/types";
 import { Button } from "UI/Atoms";
 import { ContractorIdentity } from "./ContractorIdentity";
 import { ContractorStats } from "./ContractorStats";
@@ -19,7 +19,7 @@ import { ContractorStatus } from "./ContractorStatus";
 import { EditContractorStats } from "./EditContractorStats";
 
 interface Props extends WriteCharacter, Log {
-  contractor: Contractor;
+  contractor: NonPlayerCharacter;
   wallet: Wallet;
   back(): void;
 }
@@ -33,7 +33,9 @@ export function ContractorSheet({
 }: Props) {
   const [mode, setMode] = useState<Modes>({ mode: "CharacterSheet" });
 
-  function setContractor(setter: (c: Contractor) => Contractor) {
+  function setContractor(
+    setter: (c: NonPlayerCharacter) => NonPlayerCharacter,
+  ) {
     setCharacter((char) => {
       return {
         ...char,
@@ -134,9 +136,14 @@ export function ContractorSheet({
         setMode={setMode}
       />
       <ContractorStats contractor={contractor} setMode={setMode} />
-      <Weapons character={contractor} setMode={setMode} setCharacter={setContractor} log={log} />
+      <Weapons
+        character={contractor}
+        setMode={setMode}
+        setCharacter={setContractor}
+        log={log}
+      />
       <Armor character={contractor} setMode={setMode} />
-      <Equipment character={contractor} setMode={setMode} />
+      <EquipmentElem character={contractor} setMode={setMode} />
       <div className="flex justify-center gap-2">
         <Button onClick={back} dark>
           Back
@@ -146,7 +153,7 @@ export function ContractorSheet({
             setCharacter((char) => ({
               ...char,
               contractors: char.contractors.filter(
-                (c) => c.id !== contractor.id
+                (c) => c.id !== contractor.id,
               ),
             }));
             back();
