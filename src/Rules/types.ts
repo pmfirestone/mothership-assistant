@@ -237,6 +237,8 @@ export interface Weapon extends WithId {
   cost: number;
   weaponRange: WeaponRangeType;
   damageString: string;
+  /** Necessary to print the weapon to the screen. */
+  wound: WoundDescription;
   shots: number | null;
   magazineSize: number | null;
   magazines: number | null;
