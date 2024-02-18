@@ -14,6 +14,7 @@ import { uuidv4 } from "Services/storageServices";
 import {
   getDamageDescription,
   getRollModeSuffix,
+  normalizedWoundToDescription,
   normalizeWoundDescription,
 } from "Services/damageServices";
 
@@ -45,24 +46,24 @@ export function AddAttack({
   const [diceNbr, setDiceNbr] = useState<number>(1);
   const [woundType, setWoundType] = useState<WoundType>("bleeding");
 
-  useEffect(() => {
-    if (attackId === undefined) {
-      return;
-    }
-    const monster = game.monsters.find((m) => m.id === monsterId);
-    if (monster === undefined) {
-      return;
-    }
-    const attack = monster.attacks.find((a) => a.id === attackId);
-    if (attack === undefined) {
-      return;
-    }
-    setAttackName(attack.name);
-    setDescription(attack.description);
-    setRollMode(attack.damage.rollMode);
-    setDiceType(attack.damage.damageType);
-    setDiceNbr(attack.damage.amount);
-    setWoundType(attack.damage.wound[0].woundType);
+	useEffect(() => {
+		if (attackId === undefined) {
+			return;
+		}
+		const monster = game.monsters.find((m) => m.id === monsterId);
+		if (monster === undefined) {
+			return;
+		}
+		const attack = monster.attacks.find((a) => a.id === attackId);
+		if (attack === undefined) {
+			return;
+		}
+		setAttackName(attack.name);
+		setDescription(attack.description);
+		setRollMode(attack.damage.rollMode);
+		setDiceType(attack.damage.damageType);
+		setDiceNbr(attack.damage.amount);
+	    setWoundType(normalizeWoundDescription(attack.wound).map((w) => w.woundType)[0]);
   }, [attackId]);
 
   function back() {
@@ -96,7 +97,6 @@ export function AddAttack({
       inflicted: "health",
       antiArmor: false,
       minDamage: 0,
-      wound: normalizeWoundDescription("Bleeding"),
     };
   }
 
@@ -115,9 +115,9 @@ export function AddAttack({
       attacks: [
         ...m.attacks,
         {
-          critical: { rollMode: "normal", woundType },
+	  wound: normalizedWoundToDescription(woundType),
           damage: getDamage(),
-          description,
+          description: description,
           name: attackName,
           id: uuidv4(),
         },

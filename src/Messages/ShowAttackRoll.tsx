@@ -41,7 +41,7 @@ export function ShowAttackRoll({
               onClick={() => {
                 context.log({
                   type: "DamageMessage",
-                  props: { ...rollDamage(d) },
+                    props: { ...rollDamage(d, weapon?.wound) },
                 });
               }}
             >

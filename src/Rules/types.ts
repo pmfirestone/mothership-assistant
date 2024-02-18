@@ -89,6 +89,7 @@ export type WeaponRangeType = "adjacent" | "close" | "long";
 
 export type WoundType = "blunt" | "bleeding" | "gunshot" | "fire" | "gore";
 
+/** Human-readable wound string describing wound and how to roll it. */
 export type WoundDescription =
   | "Gunshot"
   | "Gunshot [-]"
@@ -108,6 +109,7 @@ export type WoundDescription =
   | "Bleeding [+] or Gore [+]"
   | "Bleeding + Gore";
 
+/** Decomposed wound description seperating wound table and how to roll. */
 export interface NormalizedWound {
   woundType: WoundType;
   rollMode: RollMode;
@@ -115,6 +117,8 @@ export interface NormalizedWound {
 
 export type WeaponType = string;
 
+/** How to compute the damage dealt. */
+// FIXME: This doesn't necessarily generalize well.
 export type DamageType =
   | "fixedDamage"
   | "fixedWounds"
@@ -236,8 +240,9 @@ export interface Weapon extends WithId {
   equipped: boolean;
   cost: number;
   weaponRange: WeaponRangeType;
+  /** Human-readable string describing damage dealt. */
   damageString: string;
-  /** Necessary to print the weapon to the screen. */
+  /** This is called critical in the mobile app. */
   wound: WoundDescription;
   shots: number | null;
   magazineSize: number | null;
@@ -382,6 +387,7 @@ export interface RollWithMode {
 }
 
 /** Damage to be dealt. */
+// This is relatively complex, since there are an enormous number of case to cover.
 export interface Damage {
   /** The kind of dice or die, or direct damage, or direct wounds. */
   damageType: DamageType;
@@ -395,16 +401,16 @@ export interface Damage {
   antiArmor: boolean;
   /** How to roll the damage: normal, advantage, or disadvantage. */
   rollMode: RollMode;
-  /** Type of wound to deal and how to roll it. */
-  wound: NormalizedWound[];
 }
 
 export type InflictedDamageType = "health" | "wounds";
 
-/** Damage that has been rolled. */
+/** Damage that has been rolled with attack wound type. */
 export interface InflictedDamage extends Damage {
   /** Rolled dice: inserted by RNG. */
   roll: RollWithMode;
+  /** Type of wound to be dealt, if any. */
+  wound: WoundDescription;
 }
 
 export interface PanicRoll {
@@ -440,6 +446,7 @@ export interface Attack extends WithId {
   name: string;
   description: string;
   damage: Damage;
+  wound: WoundDescription;
 }
 
 export interface Game {

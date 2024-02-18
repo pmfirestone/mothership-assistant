@@ -51,7 +51,7 @@ test("applyDamage (less than armor)", () => {
       minDamage: 0,
       rollMode: "normal",
       roll: { rolls: [1, 3], result: 4 },
-      wound: normalizeWoundDescription("Bleeding"),
+      wound: "Blunt Force",
       inflicted: "health",
     }),
   ).toStrictEqual(testChar);
@@ -69,7 +69,7 @@ test("applyDamage (less than armor, anti-armor)", () => {
       minDamage: 0,
       rollMode: "normal",
       roll: { rolls: [1, 3], result: 4 },
-      wound: normalizeWoundDescription("Bleeding"),
+      wound: "Blunt Force",
       inflicted: "health",
     }),
   ).toStrictEqual(exp);
@@ -87,7 +87,7 @@ test("applyDamage (more than armor)", () => {
       minDamage: 0,
       rollMode: "normal",
       roll: { rolls: [1, 3], result: 8 },
-      wound: normalizeWoundDescription("Bleeding"),
+      wound: "Blunt Force",
       inflicted: "health",
     }),
   ).toStrictEqual(exp);
@@ -106,7 +106,7 @@ test("applyDamage (more than armor, causes wound)", () => {
       minDamage: 0,
       rollMode: "normal",
       roll: { rolls: [], result: 20 },
-      wound: normalizeWoundDescription("Bleeding"),
+      wound: "Blunt Force",
       inflicted: "health",
     }),
   ).toStrictEqual(exp);
@@ -124,7 +124,7 @@ test("applyDamage (damage reduction)", () => {
       amount: 5,
       rollMode: "normal",
       roll: { rolls: [], result: 3 },
-      wound: normalizeWoundDescription("Bleeding"),
+      wound: "Blunt Force",
       inflicted: "health",
     }),
   ).toStrictEqual(exp);
@@ -142,7 +142,7 @@ test("applyDamage (no health, hit to wound)", () => {
       minDamage: 0,
       rollMode: "normal",
       roll: { rolls: [], result: 4 },
-      wound: normalizeWoundDescription("Bleeding"),
+      wound: "Blunt Force",
       inflicted: "health",
     }),
   ).toStrictEqual(exp);

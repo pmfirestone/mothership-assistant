@@ -253,56 +253,69 @@ export function applyDamage(
  * Roll for damage.
  * @param damage The damage set up to apply RNG to, from a {@link Weapon} or {@link Attack}.
  * @param rollMode Whether rolling normally, or with advantage or disadvantage.
- * @param attackName The name of the attack.
  * @return The damage with random numbers in it. The caller should interpret these.
  */
-export function rollDamage(damage: Damage): InflictedDamage {
+// FIXME: This can be done much better, but as it is depends on the structure of
+// the Damage type: this effectively parses, manually, each of the individual
+// types of damage.
+export function rollDamage(
+  damage: Damage,
+  wound: WoundDescription = "Blunt Force", // Silly default.
+): InflictedDamage {
   if (damage.damageType === "d100") {
     return {
       ...damage,
       roll: applyRollMode(damage.rollMode, () => roll(1, 100)),
+      wound,
     };
   }
   if (damage.damageType === "d10x10") {
     return {
       ...damage,
       roll: applyRollMode(damage.rollMode, () => roll(1, 10) * 10),
+      wound,
     };
   }
   if (damage.damageType === "d5MinusOneWounds") {
     return {
       ...damage,
       roll: applyRollMode(damage.rollMode, () => roll(1, 5) - 1),
+      wound,
     };
   }
   if (damage.damageType === "fixedDamage") {
     return {
       ...damage,
       roll: { result: damage.amount, rolls: [damage.amount] },
+      wound,
     };
   }
   if (damage.damageType === "fixedWounds") {
     return {
       ...damage,
       roll: { result: damage.amount, rolls: [damage.amount] },
+      wound,
     };
   }
   if (damage.damageType === "xd10") {
     return {
       ...damage,
       roll: applyRollMode(damage.rollMode, () => roll(damage.amount, 10)),
+      wound,
     };
   }
   if (damage.damageType === "xd20") {
     return {
       ...damage,
       roll: applyRollMode(damage.rollMode, () => roll(damage.amount, 10)),
+      wound,
     };
   }
   if (damage.damageType === "xd5") {
     return {
       ...damage,
       roll: applyRollMode(damage.rollMode, () => roll(damage.amount, 5)),
+      wound,
     };
   }
 

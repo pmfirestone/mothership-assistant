@@ -119,7 +119,7 @@ export function MonsterShort({
             }}
           >
             {a.name} {getDamageDescription(a.damage)} -{" "}
-            {deNormalizeCriticalType(a.damage.wound[0])}
+            {a.wound}
             <FireIcon />
           </Button>
         ))}

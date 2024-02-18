@@ -1,7 +1,10 @@
 import { InflictedDamage, PlayerCharacter } from "Rules/types";
 import { MessageContext } from "./types";
 import { Button } from "UI/Atoms";
-import { applyDamage } from "Services/damageServices";
+import {
+  applyDamage,
+  normalizedWoundToDescription,
+} from "Services/damageServices";
 
 export function ShowDamage({
   damageType,
@@ -10,8 +13,8 @@ export function ShowDamage({
   minDamage,
   antiArmor,
   rollMode,
-  wound,
   roll,
+  wound,
   context,
 }: InflictedDamage & { context: MessageContext }) {
   const { result: result, rolls: rolls } = roll;
@@ -23,9 +26,8 @@ export function ShowDamage({
           {r}
         </span>
       ))}
-      <span>
-        - {wound?.map((w) => w.woundType)} - {inflicted}
-      </span>
+      {/* <span>- {wound}</span> */}
+      <span>- {inflicted}</span>
       <div>
         <Button
           dark
@@ -38,8 +40,8 @@ export function ShowDamage({
               minDamage,
               antiArmor,
               rollMode,
-              wound,
               roll,
+              wound,
             };
             if (context.type === "player") {
               // not using setter function because it is run twice and we are emitting messages

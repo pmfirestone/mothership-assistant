@@ -129,7 +129,8 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
           custom: {
             weaponType: "Combat Knife",
             baseType: "knife",
-            damageString: "1d5 DMG [+]",
+	    damageString: "1d5 DMG [+]",
+            wound: "Bleeding [+]",
             damage: [
               {
                 damageType: "xd5",
@@ -138,7 +139,6 @@ export const loadoutRefs: Record<CharacterClass, LoadoutRef[]> = {
                 minDamage: 0,
                 antiArmor: false,
                 rollMode: "advantage",
-                wound: normalizeWoundDescription("Bleeding [+]"),
               },
             ],
           },

@@ -16,13 +16,14 @@ export function TakeDamage({
   log,
 }: WriteCharacter & SetMode & Log) {
   const [damage, setDamage] = useState<InflictedDamage>({
+    // Silly default values.
     damageType: "xd10",
     inflicted: "health",
     amount: 1,
     minDamage: 0,
     antiArmor: false,
     rollMode: "normal",
-    wound: normalizeWoundDescription("Gunshot"),
+    wound: "Blunt Force",
     roll: { rolls: [], result: 0 },
   });
   return (
@@ -40,6 +41,28 @@ export function TakeDamage({
             });
           }}
         />
+        <Divider />
+        <div className="flex flex-wrap justify-center gap-2">
+          {allWoundTables.map((wt) => (
+            <div className="shrink-0">
+              <Button
+                light={
+                  normalizeWoundDescription(damage.wound)[0].woundType !=
+                  wt.woundType
+                }
+                rounded
+                onClick={() => {
+                  setDamage((d) => ({
+                    ...d,
+                    wound: normalizedWoundToDescription(wt.woundType),
+                  }));
+                }}
+              >
+                {wt.name}
+              </Button>
+            </div>
+          ))}
+        </div>
         <Divider />
         <div className="flex justify-center gap-2">
           <Button
