@@ -1,10 +1,10 @@
-import { NormalizedWound, WoundType } from "Rules/types";
+import { NormalizedWound, PlayerCharacter, WoundType } from "Rules/types";
 import { Block, Button, Divider } from "UI/Atoms";
 import { useState } from "react";
 import { ReadWriteCharacter, SetMode, WriteCharacter } from "./types";
 import { Log } from "Messages/types";
 import { allWoundTables } from "Rules/Data/wounds";
-import { rollWound } from "Services/damageServices";
+import { applyWounds } from "Services/damageServices";
 
 interface Props extends ReadWriteCharacter, SetMode, Log {}
 
@@ -71,8 +71,8 @@ export function RollWound({ character, setCharacter, setMode, log }: Props) {
           rounded
           onClick={() => {
             // we don't use setter function because we have side effects and it is run twice
-            const newChar = rollWound(character, log, [woundRoll]);
-            setCharacter((c) => newChar);
+            const newChar = applyWounds(character, [woundRoll], log);
+            setCharacter(() => newChar as PlayerCharacter);
             setMode({ mode: "CharacterSheet" });
           }}
         >

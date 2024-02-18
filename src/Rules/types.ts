@@ -203,7 +203,7 @@ export interface WoundTable {
 
 export interface WoundEffect {
   description: string;
-  effect(c: PlayerCharacter, log: (m: GameMessage) => void): PlayerCharacter;
+  effect(c: PlayerCharacter): PlayerCharacter;
 }
 
 export interface WithId {

@@ -1,10 +1,7 @@
 import { InflictedDamage, PlayerCharacter } from "Rules/types";
 import { MessageContext } from "./types";
 import { Button } from "UI/Atoms";
-import {
-  applyDamage,
-  normalizedWoundToDescription,
-} from "Services/damageServices";
+import { applyDamage, countWounds, applyWounds } from "Services/damageServices";
 
 export function ShowDamage({
   damageType,
@@ -26,8 +23,9 @@ export function ShowDamage({
           {r}
         </span>
       ))}
-      {/* <span>- {wound}</span> */}
-      <span>- {inflicted}</span>
+      <span>
+        {} - {wound} - {inflicted}
+      </span>
       <div>
         <Button
           dark
@@ -45,8 +43,19 @@ export function ShowDamage({
             };
             if (context.type === "player") {
               // not using setter function because it is run twice and we are emitting messages
-              const newChar = applyDamage(context.character, inflictedDamage);
-              context.setCharacter((c) => newChar as PlayerCharacter);
+              const newChar = applyDamage(
+                context.character,
+                inflictedDamage,
+              ) as PlayerCharacter;
+              const wounds = countWounds(
+                context.character,
+                newChar,
+                inflictedDamage.wound,
+              );
+              context.setCharacter(
+                () =>
+                  applyWounds(newChar, wounds, context.log) as PlayerCharacter,
+              );
               return;
             }
             if (context.type === "warden") {

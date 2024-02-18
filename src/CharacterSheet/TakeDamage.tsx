@@ -8,6 +8,8 @@ import {
   normalizedWoundToDescription,
   applyDamage,
   normalizeWoundDescription,
+  countWounds,
+  applyWounds,
 } from "Services/damageServices";
 
 export function TakeDamage({
@@ -90,7 +92,11 @@ export function TakeDamage({
             dark
             rounded
             onClick={() => {
-              setCharacter((c) => applyDamage(c, damage) as PlayerCharacter);
+              setCharacter((c) => {
+                const newChar = applyDamage(c, damage) as PlayerCharacter;
+                const wounds = countWounds(c, newChar, damage.wound);
+                return applyWounds(c, wounds, null);
+              });
               log({ type: "DamageMessage", props: damage });
               setMode({ mode: "CharacterSheet" });
             }}

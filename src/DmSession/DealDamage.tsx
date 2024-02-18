@@ -3,7 +3,7 @@ import { ReadWriteGame, SetDmMode } from "./types";
 import { useState } from "react";
 import { updateInList } from "helpers";
 import { applyDamage } from "Services/damageServices";
-import { Character, InflictedDamage, NonPlayerCharacter } from "Rules/types";
+import { InflictedDamage, NonPlayerCharacter } from "Rules/types";
 
 interface Props extends ReadWriteGame, SetDmMode {
   damage: InflictedDamage;
