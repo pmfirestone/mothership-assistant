@@ -1,6 +1,6 @@
 import { formatCredits, updateInList } from "helpers";
 import { useState } from "react";
-import { Damage, Weapon } from "Rules/types";
+import { Weapon } from "Rules/types";
 import { Block, Button, Title } from "UI/Atoms";
 import { Rating } from "UI/Molecules";
 import { Field, ItemDetails, simpleField } from "UI/Organisms/ItemDetails";
