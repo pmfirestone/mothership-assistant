@@ -19,6 +19,8 @@ import { applyRollMode, roll } from "./diceServices";
  * @param target The target (player, NPC, monster) to attack.
  * @param woundRolls The inflicted wounds to roll up.
  * @param log A function to publish the effects.
+ *
+ * @return The character with wound effects applied.
  */
 export function applyWounds(
   target: PlayerCharacter,
@@ -42,6 +44,12 @@ export function applyWounds(
 
 /**
  * Create a list of wounds to roll to apply to a character.
+ *
+ * @param oldTarget The target before damage was applied.
+ * @param newTarget The target after damage is applied.
+ * @param wound The kind of wound to apply.
+ *
+ * @return A list of wounds to roll.
  */
 export function countWounds({
   oldTarget,
