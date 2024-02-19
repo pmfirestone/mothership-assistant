@@ -94,7 +94,11 @@ export function TakeDamage({
             onClick={() => {
               setCharacter((c) => {
                 const newChar = applyDamage(c, damage) as PlayerCharacter;
-                const wounds = countWounds(c, newChar, damage.wound);
+                const wounds = countWounds({
+                  oldTarget: c,
+                  newTarget: newChar,
+                  wound: damage.wound,
+                });
                 return applyWounds(c, wounds, null);
               });
               log({ type: "DamageMessage", props: damage });

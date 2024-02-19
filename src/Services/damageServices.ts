@@ -43,11 +43,15 @@ export function applyWounds(
 /**
  * Create a list of wounds to roll to apply to a character.
  */
-export function countWounds(
-  oldTarget: Character,
-  newTarget: Character,
-  wound: WoundDescription,
-): NormalizedWound[] {
+export function countWounds({
+  oldTarget,
+  newTarget,
+  wound,
+}: {
+  oldTarget: Character;
+  newTarget: Character;
+  wound: WoundDescription;
+}): NormalizedWound[] {
   const normWound = normalizeWoundDescription(wound);
   let woundsToInflict = [];
   for (let i = 0; i < newTarget.wounds - oldTarget.wounds; i++) {

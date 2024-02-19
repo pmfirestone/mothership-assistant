@@ -47,11 +47,11 @@ export function ShowDamage({
                 context.character,
                 inflictedDamage,
               ) as PlayerCharacter;
-              const wounds = countWounds(
-                context.character,
-                newChar,
-                inflictedDamage.wound,
-              );
+              const wounds = countWounds({
+                oldTarget: context.character,
+                newTarget: newChar,
+                wound: inflictedDamage.wound,
+              });
               context.setCharacter(
                 () =>
                   applyWounds(newChar, wounds, context.log) as PlayerCharacter,
