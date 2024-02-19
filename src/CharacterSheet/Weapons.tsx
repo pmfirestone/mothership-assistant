@@ -88,7 +88,7 @@ function Weapon({ weapon, setCharacter, setMode, log }: WeaponProps) {
             log({
               type: "DamageMessage",
               props: {
-                ...rollDamage(weapon.damage[0]),
+                ...rollDamage(weapon.damage[0], weapon.wound),
               },
             });
           }}

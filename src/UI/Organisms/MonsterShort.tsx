@@ -113,7 +113,7 @@ export function MonsterShort({
               log({
                 type: "DamageMessage",
                 props: {
-                  ...rollDamage(a.damage),
+                  ...rollDamage(a.damage, a.wound),
                 },
               });
             }}
