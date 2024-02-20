@@ -4,6 +4,7 @@ import { applyRollMode, roll } from "Services/diceServices";
 import { Block, Button, Divider } from "UI/Atoms";
 import { useState } from "react";
 import { allWoundTables } from "Rules/Data/wounds";
+import { normalizedWoundToDescription } from "Services/damageServices";
 
 const allDiceTypes = [5, 10, 20, 100];
 
@@ -19,18 +20,19 @@ export function Roll({ log }: Log) {
   function rollDices() {
     const result = applyRollMode(rollMode, () => roll(diceNbr, diceType));
     if (dealDamage) {
-      {
-        /*
       log({
         type: "DamageMessage",
-          props: {
-	      damageType: `${diceNbr}d${diceType}`,
-            roll: result,
-	    wound: [{ woundType: woundType, rollMode: "normal" }],
-            inflicted: inflictedType,
+        props: {
+          damageType: "fixedDamage", // FIXME: This is a meaningless default here.
+          inflicted: inflictedType,
+          amount: diceNbr,
+          minDamage: 0, // FIXME: Enable taking flat bonus damage.
+          antiArmor: false, // FIXME: Enable setting antiarmor.
+          rollMode: rollMode,
+          roll: result,
+          wound: normalizedWoundToDescription(woundType),
         },
-      }); */
-      }
+      });
     } else {
       log({
         type: "GenericRollMessage",
