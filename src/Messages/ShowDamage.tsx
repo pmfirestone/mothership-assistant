@@ -45,7 +45,6 @@ export function ShowDamage({
               context.setCharacter((c) => {
                 return applyDamage(c, inflictedDamage) as PlayerCharacter;
               });
-              context.log({ type: "DamageMessage", props: inflictedDamage });
             }
             if (context.type === "warden") {
               context.setMode({ mode: "DealDamage", damage: inflictedDamage });

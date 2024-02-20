@@ -95,7 +95,6 @@ export function TakeDamage({
               setCharacter((c) => {
                 return applyDamage(c, damage) as PlayerCharacter;
               });
-              log({ type: "DamageMessage", props: damage });
               setMode({ mode: "CharacterSheet" });
             }}
           >
