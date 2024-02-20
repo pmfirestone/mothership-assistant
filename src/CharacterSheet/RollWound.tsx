@@ -71,7 +71,12 @@ export function RollWound({ character, setCharacter, setMode, log }: Props) {
           rounded
           onClick={() => {
             // we don't use setter function because we have side effects and it is run twice
-            const newChar = applyWounds(character, [woundRoll], log);
+            const newChar = applyWounds(
+              character,
+              deNormalizeCriticalType(woundRoll),
+              1,
+              log,
+            );
             setCharacter(() => newChar as PlayerCharacter);
             setMode({ mode: "CharacterSheet" });
           }}
