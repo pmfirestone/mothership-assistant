@@ -9,7 +9,6 @@ import {
 } from "Rules/types";
 import { allWeaponDict } from "./weapons";
 import { allEquipmentDict } from "./equipment";
-import { normalizeWoundDescription } from "Services/damageServices";
 
 interface DataRef<T> {
   ref: string;
