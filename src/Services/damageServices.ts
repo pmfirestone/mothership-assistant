@@ -379,7 +379,7 @@ export function normalizeWoundDescription(
     return [{ woundType: "fire", rollMode: "advantage" }];
   }
   if (criticalType === "Gore") {
-    return [{ woundType: "gore", rollMode: "advantage" }];
+    return [{ woundType: "gore", rollMode: "normal" }];
   }
   if (criticalType === "Gore [-]") {
     return [{ woundType: "gore", rollMode: "disadvantage" }];
