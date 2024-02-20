@@ -30,17 +30,27 @@ export function applyWounds(
   log: (m: GameMessage) => void,
 ): PlayerCharacter {
   let newTarget = { ...target };
-  woundRolls.forEach((wr) => {
-    const woundTable = allWoundTablesDict[wr.woundType];
-    const woundRoll = applyRollMode(wr.rollMode, () => roll(1, 10));
-    const woundEffect = woundTable.effects[woundRoll.result - 1];
-    log &&
+  const normWound = normalizeWoundDescription(wound);
+  for (let i = 0; i < number; i++) {
+    normWound.forEach((wr) => {
+      const woundTable = allWoundTablesDict[wr.woundType];
+      // Invert advantage and disadvantage, since in the context of rollling
+      // wounds lower is better. FIXME: this is an ugly kludge.
+      wr.rollMode =
+        wr.rollMode === "advantage"
+          ? "disadvantage"
+          : wr.rollMode === "disadvantage"
+            ? "advantage"
+            : "normal";
+      const woundRoll = applyRollMode(wr.rollMode, () => roll(1, 10));
+      const woundEffect = woundTable.effects[woundRoll.result - 1];
       log({
         type: "WoundEffectMessage",
         props: { type: wr.woundType, woundRoll },
       });
-    newTarget = woundEffect.effect(newTarget);
-  });
+      newTarget = woundEffect.effect(newTarget);
+    });
+  }
   return newTarget;
 }
 
@@ -53,15 +63,11 @@ export function applyWounds(
  *
  * @return A list of wounds to roll.
  */
-export function countWounds({
-  oldTarget,
-  newTarget,
-  wound,
-}: {
-  oldTarget: Character;
-  newTarget: Character;
-  wound: WoundDescription;
-}): NormalizedWound[] {
+export function countWounds(
+  oldTarget: PlayerCharacter,
+  newTarget: PlayerCharacter,
+  wound: WoundDescription,
+): NormalizedWound[] {
   const normWound = normalizeWoundDescription(wound);
   let woundsToInflict = [];
   for (let i = 0; i < newTarget.wounds - oldTarget.wounds; i++) {
