@@ -118,8 +118,7 @@ export function MonsterShort({
               });
             }}
           >
-            {a.name} {getDamageDescription(a.damage)} -{" "}
-            {a.wound}
+            {a.name} {getDamageDescription(a.damage)} - {a.wound}
             <FireIcon />
           </Button>
         ))}
