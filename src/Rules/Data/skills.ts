@@ -37,39 +37,10 @@ export const allSkillLevelDefinitionDict: Record<
 
 export const allSkills: SkillDefinition[] = [
   {
-    key: "linguistics",
-    name: "linguistics",
-    level: "Trained",
-    description: "The study of languages (alive, dead, and undiscovered).",
-    prerequisites: [],
-  },
-  {
-    key: "computers",
-    name: "computers",
-    level: "Trained",
-    description: "Fluent use of computers and their networks.",
-    prerequisites: [],
-  },
-  {
-    key: "mathematics",
-    name: "mathematics",
-    level: "Trained",
-    description: "The study of numbers, quantity, and space.",
-    prerequisites: [],
-  },
-  {
     key: "archaelogy",
     name: "archaelogy",
     level: "Trained",
     description: "Ancient cultures and artifacts.",
-    prerequisites: [],
-  },
-  {
-    key: "rimwise",
-    name: "rimwise",
-    level: "Trained",
-    description:
-      "Practical knowledge and know-how regarding outer rim colonies, their customs, and the seedier parts of the galaxy.",
     prerequisites: [],
   },
   {
@@ -102,6 +73,13 @@ export const allSkills: SkillDefinition[] = [
     prerequisites: [],
   },
   {
+    key: "computers",
+    name: "computers",
+    level: "Trained",
+    description: "Fluent use of computers and their networks.",
+    prerequisites: [],
+  },
+  {
     key: "geology",
     name: "geology",
     level: "Trained",
@@ -126,10 +104,32 @@ export const allSkills: SkillDefinition[] = [
     prerequisites: [],
   },
   {
+    key: "linguistics",
+    name: "linguistics",
+    level: "Trained",
+    description: "The study of languages (alive, dead, and undiscovered).",
+    prerequisites: [],
+  },
+  {
+    key: "mathematics",
+    name: "mathematics",
+    level: "Trained",
+    description: "The study of numbers, quantity, and space.",
+    prerequisites: [],
+  },
+  {
     key: "militaryTraining",
     name: "military training",
     level: "Trained",
     description: "Basic training provided to all military personnel.",
+    prerequisites: [],
+  },
+  {
+    key: "rimwise",
+    name: "rimwise",
+    level: "Trained",
+    description:
+      "Practical knowledge and know-how regarding outer Rim colonies, their customs, and the seedier parts of the galaxy.",
     prerequisites: [],
   },
   {
@@ -176,7 +176,7 @@ export const allSkills: SkillDefinition[] = [
     level: "Expert",
     description:
       "Design and effective use of explosive devices (bombs, grenade, shells, land mines, etc.).",
-    prerequisites: ["juryRigging", "chemistry"],
+    prerequisites: ["juryRigging", "chemistry", "militaryTraining"],
   },
   {
     key: "fieldMedicine",
@@ -201,9 +201,9 @@ export const allSkills: SkillDefinition[] = [
   },
   {
     key: "handToHandCombat",
-    name: "handToHand combat",
+    name: "hand-to-hand combat",
     level: "Expert",
-    description: "Melee fighting.",
+    description: "Melee fighting, brawling, martial arts, etc.",
     prerequisites: ["athletics", "rimwise", "militaryTraining"],
   },
   {
@@ -239,7 +239,7 @@ export const allSkills: SkillDefinition[] = [
     name: "physics",
     level: "Expert",
     description:
-      " Study of matter, motion, energy, and their effects in space and time.",
+      "Study of matter, motion, energy, and their effects in space and time.",
     prerequisites: ["mathematics"],
   },
   {
