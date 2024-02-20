@@ -54,7 +54,7 @@ export const allWoundTables: WoundTable[] = [
         effect: addBleeding(6),
       },
       {
-        description: "Throat slit or heart pierced. Death Check.",
+        description: "Throat slit or heart pierced. Death Save.",
         effect(c) {
           return c;
         },
@@ -120,7 +120,7 @@ export const allWoundTables: WoundTable[] = [
         },
       },
       {
-        description: "Spine or neck broken. Death Check.",
+        description: "Spine or neck broken. Death Save.",
         effect(c) {
           return c;
         },
@@ -156,19 +156,19 @@ export const allWoundTables: WoundTable[] = [
         },
       },
       {
-        description: "3rd degree burns.",
+        description: "Extensive burns. -1d10 Strength.",
         effect(c) {
           return c;
         },
       },
       {
-        description: "Major Burn. Body Save -2d10.",
+        description: "Major Burn. -2d10 Body Save.",
         effect(c) {
           return { ...c, body: c.body - roll(2, 10) };
         },
       },
       {
-        description: "Skin grafts reauired. Body Save -2d10.",
+        description: "Skin grafts required. -2d10 Body Save.",
         effect(c) {
           return { ...c, body: c.body - roll(2, 10) };
         },
@@ -186,7 +186,7 @@ export const allWoundTables: WoundTable[] = [
         },
       },
       {
-        description: "Engulfed in fiery explosion. Death Check.",
+        description: "Engulfed in fiery explosion. Death Save.",
         effect(c) {
           return c;
         },
@@ -246,7 +246,7 @@ export const allWoundTables: WoundTable[] = [
         effect: addBleeding(7),
       },
       {
-        description: "Head explodes. No Death Check. You have died.",
+        description: "Head explodes. No Death Save. You have died.",
         effect(c) {
           return c;
         },
@@ -304,7 +304,7 @@ export const allWoundTables: WoundTable[] = [
         effect: addBleeding(5),
       },
       {
-        description: "Headshot. Death Check.",
+        description: "Headshot. Death Save.",
         effect(c) {
           return c;
         },
