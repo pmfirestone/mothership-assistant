@@ -17,7 +17,7 @@ export function Roll({ log }: Log) {
   const [inflictedType, setInflictedType] =
     useState<InflictedDamageType>("health");
 
-  function rollDices() {
+  function rollDice() {
     const result = applyRollMode(rollMode, () => roll(diceNbr, diceType));
     if (dealDamage) {
       log({
@@ -134,7 +134,7 @@ export function Roll({ log }: Log) {
         </div>
         <Divider />
         <div className="flex justify-center gap-2">
-          <Button dark rounded onClick={rollDices}>
+          <Button dark rounded onClick={rollDice}>
             roll
           </Button>
         </div>
