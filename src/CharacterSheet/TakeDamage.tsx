@@ -93,13 +93,7 @@ export function TakeDamage({
             rounded
             onClick={() => {
               setCharacter((c) => {
-                const newChar = applyDamage(c, damage) as PlayerCharacter;
-                const wounds = countWounds({
-                  oldTarget: c,
-                  newTarget: newChar,
-                  wound: damage.wound,
-                });
-                return applyWounds(c, wounds, null);
+                return applyDamage(c, damage) as PlayerCharacter;
               });
               log({ type: "DamageMessage", props: damage });
               setMode({ mode: "CharacterSheet" });

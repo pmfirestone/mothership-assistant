@@ -42,21 +42,10 @@ export function ShowDamage({
               wound,
             };
             if (context.type === "player") {
-              // not using setter function because it is run twice and we are emitting messages
-              const newChar = applyDamage(
-                context.character,
-                inflictedDamage,
-              ) as PlayerCharacter;
-              const wounds = countWounds({
-                oldTarget: context.character,
-                newTarget: newChar,
-                wound: inflictedDamage.wound,
+              context.setCharacter((c) => {
+                return applyDamage(c, inflictedDamage) as PlayerCharacter;
               });
-              context.setCharacter(
-                () =>
-                  applyWounds(newChar, wounds, context.log) as PlayerCharacter,
-              );
-              return;
+              context.log({ type: "DamageMessage", props: inflictedDamage });
             }
             if (context.type === "warden") {
               context.setMode({ mode: "DealDamage", damage: inflictedDamage });
