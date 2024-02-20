@@ -25,8 +25,9 @@ import { applyRollMode, roll } from "./diceServices";
  */
 export function applyWounds(
   target: PlayerCharacter,
-  woundRolls: NormalizedWound[],
-  log: null | ((m: GameMessage) => void),
+  wound: WoundDescription,
+  number: number,
+  log: (m: GameMessage) => void,
 ): PlayerCharacter {
   let newTarget = { ...target };
   woundRolls.forEach((wr) => {
