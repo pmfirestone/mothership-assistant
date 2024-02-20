@@ -70,7 +70,6 @@ export function RollWound({ character, setCharacter, setMode, log }: Props) {
           dark
           rounded
           onClick={() => {
-            // we don't use setter function because we have side effects and it is run twice
             const newChar = applyWounds(
               character,
               deNormalizeCriticalType(woundRoll),
