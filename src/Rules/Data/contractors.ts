@@ -24,6 +24,9 @@ export const allContractorTypes: ContractorType[] = [
   "voidUrchin",
 ];
 
+// FIXME: Make this into a real table of 6 dimensions: Occupation, Salary,
+// Combat, Instincts, Max Wounds, and Motivation.
+// FIXME: Add motivations.
 export const allContractors: NonPlayerCharacter[] = [
   {
     type: "archaeologist",
