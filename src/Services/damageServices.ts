@@ -34,14 +34,6 @@ export function applyWounds(
   for (let i = 0; i < number; i++) {
     normWound.forEach((wr) => {
       const woundTable = allWoundTablesDict[wr.woundType];
-      // Invert advantage and disadvantage, since in the context of rollling
-      // wounds lower is better. FIXME: this is an ugly kludge.
-      wr.rollMode =
-        wr.rollMode === "advantage"
-          ? "disadvantage"
-          : wr.rollMode === "disadvantage"
-            ? "advantage"
-            : "normal";
       const woundRoll = applyRollMode(wr.rollMode, () => roll(1, 10));
       const woundEffect = woundTable.effects[woundRoll.result - 1];
       log({
