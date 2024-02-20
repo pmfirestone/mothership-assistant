@@ -17,7 +17,8 @@ import { applyRollMode, roll } from "./diceServices";
  * Roll wounds and apply effects to a character.
  *
  * @param target The target (player, NPC, monster) to attack.
- * @param woundRolls The inflicted wounds to roll up.
+ * @param wound The inflicted wounds to roll up.
+ * @param number The number of wounds to inflict.
  * @param log A function to publish the effects.
  *
  * @return The character with wound effects applied.
@@ -68,6 +69,7 @@ export function countWounds({
 
   return woundsToInflict.flat();
 }
+
 /**
  * Apply rolled damage to character.
  *
@@ -109,8 +111,9 @@ export function applyDamage(
     return newTarget;
   }
 
-  // "If [Characters] ever take Damage grater than or equal to their AP in
-  // one hit, their armor is destroyed and they suffer any remaining Damage." PSG pg. 28.3
+  // "If [Characters] ever take Damage grater than or equal to their AP in one
+  // hit, their armor is destroyed and they suffer any remaining Damage." PSG
+  // pg. 28.3
   if (passedThroughDamage >= armorPoints) {
     newTarget.armor = [];
     passedThroughDamage -= armorPoints;
@@ -119,13 +122,15 @@ export function applyDamage(
   if (newTarget.health && damage.inflicted === "health") {
     // "When taking Damage, subtract it from Health." PSG 28.2
     while (passedThroughDamage > 0) {
-      // Ugly hack to calm the compiler: by the time this line is reached we know we have a health attribute.
+      // Ugly hack to calm the compiler: by the time this line is reached we
+      // know we have a health attribute.
       newTarget?.health && newTarget.health--;
       passedThroughDamage--;
       if (newTarget.health == 0) {
         // "If your health reaches zero, gain a Wound." PSG pg. 28.2
         newTarget.wounds++;
-        // "Then, reset the character's Health to Maximum and subtract any carryover damage." PSG pg. 28.2
+        // "Then, reset the character's Health to Maximum and
+        // subtract any carryover damage." PSG pg. 28.2
         newTarget.health = newTarget.maxHealth;
       }
     }
@@ -210,6 +215,7 @@ export function rollDamage(
   throw new Error("unknown damage type");
 }
 
+/** Convert roll mode string to human-readable string for display. */
 export function getRollModeSuffix(rollMode: RollMode): string {
   if (rollMode === "normal") {
     return "";
@@ -223,6 +229,7 @@ export function getRollModeSuffix(rollMode: RollMode): string {
   throw new Error("unknown roll mode");
 }
 
+/** Convert damage string to human-readable string for display. */
 export function getDamageDescription(damages: Damage): string {
   if (damages.damageType === "d100") {
     return "d100 DMG";
