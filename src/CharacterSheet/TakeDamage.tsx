@@ -8,8 +8,6 @@ import {
   normalizedWoundToDescription,
   applyDamage,
   normalizeWoundDescription,
-  countWounds,
-  applyWounds,
 } from "Services/damageServices";
 
 export function TakeDamage({
