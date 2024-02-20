@@ -393,7 +393,7 @@ export interface Damage {
   damageType: DamageType;
   /** The type of damage to compute: health or wounds. */
   inflicted: InflictedDamageType;
-  /** The number of die, or the flat damage or wounds. */
+  /** The number of dice, or the flat damage or wounds. */
   amount: number;
   /** A flat bonus to damage. */
   minDamage: number;
