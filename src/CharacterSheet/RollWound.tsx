@@ -1,10 +1,10 @@
-import { NormalizedWound, PlayerCharacter, WoundType } from "Rules/types";
+import { NormalizedWound, PlayerCharacter } from "Rules/types";
 import { Block, Button, Divider } from "UI/Atoms";
 import { useState } from "react";
-import { ReadWriteCharacter, SetMode, WriteCharacter } from "./types";
+import { ReadWriteCharacter, SetMode } from "./types";
 import { Log } from "Messages/types";
 import { allWoundTables } from "Rules/Data/wounds";
-import { applyWounds } from "Services/damageServices";
+import { applyWounds, deNormalizeCriticalType } from "Services/damageServices";
 
 interface Props extends ReadWriteCharacter, SetMode, Log {}
 
